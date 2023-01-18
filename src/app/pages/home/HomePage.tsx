@@ -8,6 +8,7 @@ const HomePage = () => {
     const loggedIn = useSelector(selectLoggedIn)
     return (
         <div className={styles.home}>
+            Hello
             <UnderConstruction />
         </div>
         // <div
