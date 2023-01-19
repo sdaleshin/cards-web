@@ -21,10 +21,10 @@ const LoginWithGoogle = () => {
                 callback: handleLoginWithGoogleResponse,
             })
             google.accounts.id.prompt()
-            // google.accounts.id.renderButton(
-            //     googleButton.current,
-            //     { theme: "outline", size: "large" }
-            // )
+            google.accounts.id.renderButton(buttonRef.current, {
+                theme: 'outline',
+                size: 'large',
+            })
         }
     }, [])
 

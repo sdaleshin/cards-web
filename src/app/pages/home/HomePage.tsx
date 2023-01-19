@@ -8,18 +8,16 @@ const HomePage = () => {
     const loggedIn = useSelector(selectLoggedIn)
     return (
         <div className={styles.home}>
-            Hello
-            <UnderConstruction />
+            <div
+                className={styles.test1}
+                onClick={() => {
+                    alert('asd')
+                }}
+            >
+                {/*{loggedIn ? 'Авторизован' : 'Требуется авторизация'}*/}
+                <LoginWithGoogle />
+            </div>
         </div>
-        // <div
-        //     className={styles.test1}
-        //     onClick={() => {
-        //         alert('asd')
-        //     }}
-        // >
-        //     {loggedIn ? 'Авторизован' : 'Требуется авторизация'}
-        //     {/*<LoginWithGoogle />*/}
-        // </div>
     )
 }
 
