@@ -1,6 +1,6 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { CardEditor } from '../index'
+import { CardEditor } from './CardEditor'
 
 export default {
     title: 'Components/MenuContainer',

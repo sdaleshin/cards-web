@@ -10,7 +10,8 @@
     "start:dev": "webpack --env mode=development",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build": "webpack --mode=production --env mode=production"
+    "build": "webpack --mode=production --env mode=production",
+    "start:server": "node ./build/server/cards-server.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/sdaleshin/cards-web#readme",
   "devDependencies": {
     "@babel/core": "^7.17.2",
+    "@babel/plugin-transform-runtime": "^7.19.6",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
@@ -69,8 +71,10 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.20.13",
     "@reduxjs/toolkit": "^1.7.2",
     "@types/express": "^4.17.13",
+    "axios": "^1.2.3",
     "express": "^4.17.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

@@ -35,6 +35,7 @@ app.get('*', (req, res) => {
                         dangerouslySetInnerHTML={{ __html: appString }}
                     />
                     <script src="/cards-client.js" />
+                    <script src="https://accounts.google.com/gsi/client"></script>
                 </body>
             </html>,
         ),
