@@ -1,14 +1,9 @@
 import styles from './home-page.scss'
-import { useSelector } from 'react-redux'
-import { selectLoggedIn } from '../../redux/auth/auth.slice'
 import { LoginWithGoogle } from '../../containers/login-with-google/LoginWithGoogle'
 
 const HomePage = () => {
-    const loggedIn = useSelector(selectLoggedIn)
-    return loggedIn ? (
-        <div className={styles.home}>Авторизован</div>
-    ) : (
-        <div className={styles.home}>
+    return (
+        <div className={styles.loginPage}>
             <div className={`${styles.light} ${styles.x1}`}></div>
             <div className={`${styles.light} ${styles.x2}`}></div>
             <div className={`${styles.light} ${styles.x3}`}></div>
