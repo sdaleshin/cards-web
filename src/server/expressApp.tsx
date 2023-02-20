@@ -1,6 +1,7 @@
 import express from 'express'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
+import { StaticRouter } from 'react-router-dom/server'
 import App from '../app/app'
 
 const app = express()
@@ -9,7 +10,13 @@ app.use(express.static('./build/client'))
 
 app.get('*', (req, res) => {
     const sheet = new ServerStyleSheet()
-    const appString = renderToString(sheet.collectStyles(<App />))
+    const appString = renderToString(
+        sheet.collectStyles(
+            <StaticRouter location={req.url}>
+                <App />
+            </StaticRouter>,
+        ),
+    )
     const styleTags = sheet.getStyleTags()
     let markup = renderToStaticMarkup(
         <html>
