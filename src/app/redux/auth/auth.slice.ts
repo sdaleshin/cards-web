@@ -7,14 +7,22 @@ import {
 import axios from 'axios'
 import { RootState } from '../store'
 import { getFullApiUrl } from '../../utils/getFullApiUrl'
-import { LOCAL_STORAGE_AUTH_TOKEN } from '../../utils/constants'
+import { addJwtTokenToCookies } from '../../utils/cookies/addJwtTokenToCookies'
+import { removeJwtTokenToCookies } from '../../utils/cookies/removeJwtTokenFromCookies'
+
+export interface UserInfo {
+    email: string
+    name: string
+}
 
 export interface AuthState {
     jwtToken: string | null
+    userInfo: UserInfo
 }
 
 const initialState: AuthState = {
-    jwtToken: null, //localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN),
+    jwtToken: null,
+    userInfo: null,
 }
 
 export const authSlice = createSlice({
@@ -23,11 +31,16 @@ export const authSlice = createSlice({
     reducers: {
         setJwtToken: (state, action: PayloadAction<string>) => {
             state.jwtToken = action.payload
+            addJwtTokenToCookies(action.payload)
+        },
+        removeJwtToken: (state) => {
+            state.jwtToken = null
+            removeJwtTokenToCookies()
         },
     },
 })
 
-export const { setJwtToken } = authSlice.actions
+export const { setJwtToken, removeJwtToken } = authSlice.actions
 
 export const selectAuthSlice = (state: RootState) => state.auth
 
@@ -54,7 +67,6 @@ export const authWithGoogleCredentials = createAsyncThunk(
                 config,
             )
             dispatch(setJwtToken(data.token))
-            localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN, data.token)
             return data
         } catch (error) {
             if (error.response && error.response.data.message) {

@@ -1,60 +1,39 @@
 import express from 'express'
-import { renderToStaticMarkup, renderToString } from 'react-dom/server'
+import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 import { StaticRouter } from 'react-router-dom/server'
-import App from '../app/app'
+import { App } from '../app/app'
+import { getStore } from '../app/redux/store'
+import { Provider } from 'react-redux'
+import { renderPage } from './renderPage'
+import cookieParser from 'cookie-parser'
+import { setJwtToken } from '../app/redux/auth/auth.slice'
+import { AUTH_TOKEN_COOKIE_NAME } from '../app/utils/constants'
 
 const app = express()
+app.use(cookieParser())
 
 app.use(express.static('./build/client'))
 
 app.get('*', (req, res) => {
+    const store = getStore()
+    store.dispatch(setJwtToken(req.cookies[AUTH_TOKEN_COOKIE_NAME]))
     const sheet = new ServerStyleSheet()
     const appString = renderToString(
         sheet.collectStyles(
             <StaticRouter location={req.url}>
-                <App />
+                <Provider store={store}>
+                    <App />
+                </Provider>
             </StaticRouter>,
         ),
     )
     const styleTags = sheet.getStyleTags()
-    let markup = renderToStaticMarkup(
-        <html>
-            <head>
-                <meta charSet="utf-8" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-                />
-                <link
-                    rel="stylesheet"
-                    href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css"
-                />
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.gstatic.com"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-                    rel="stylesheet"
-                />
-                <link href="STYLED_COMPONENTS_TAG" />
-            </head>
-            <body>
-                <div
-                    id="root"
-                    dangerouslySetInnerHTML={{ __html: appString }}
-                />
-                <script src="/cards-client.js" />
-                <script src="https://accounts.google.com/gsi/client"></script>
-            </body>
-        </html>,
+    const markup = renderPage(
+        appString,
+        styleTags,
+        JSON.stringify(store.getState()),
     )
-
-    markup = markup.replace(`<link href="STYLED_COMPONENTS_TAG"/>`, styleTags)
-
     res.write('<!DOCTYPE html>')
     res.write(markup)
     res.end()
