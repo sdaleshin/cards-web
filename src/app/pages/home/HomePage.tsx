@@ -5,12 +5,13 @@ import {
     TypographyType,
 } from '../../components/basic/typography/Typography'
 import { useSelector } from 'react-redux'
-import { selectLoggedIn } from '../../redux/auth/auth.slice'
+import { selectLoggedIn, selectUserInfo } from '../../redux/auth/auth.slice'
 import { Link } from 'react-router-dom'
+import { HeaderContainer } from '../../containers/header-container/HeaderContainer'
 
 const StyledContainer = styled.div`
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 56px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,20 +27,36 @@ const TranlsationBlock = styled.div`
 
 const StyledLink = styled(Link)`
     text-decoration: none;
+    margin: 36px;
 `
 
 export const HomePage = () => {
     const loggedIn = useSelector(selectLoggedIn)
     return loggedIn ? (
-        <StyledContainer>
-            <StyledLink to="/translation">
-                <TranlsationBlock>
-                    <Typography type={TypographyType.H1}>
-                        Translation
-                    </Typography>
-                </TranlsationBlock>
-            </StyledLink>
-        </StyledContainer>
+        <>
+            <HeaderContainer />
+            <StyledContainer>
+                <StyledLink to="/translation">
+                    <TranlsationBlock>
+                        <Typography type={TypographyType.H1}>
+                            Translation
+                        </Typography>
+                    </TranlsationBlock>
+                </StyledLink>
+                <StyledLink to="/folders">
+                    <TranlsationBlock>
+                        <Typography type={TypographyType.H1}>
+                            Folders
+                        </Typography>
+                    </TranlsationBlock>
+                </StyledLink>
+                <StyledLink to="/cards">
+                    <TranlsationBlock>
+                        <Typography type={TypographyType.H1}>Cards</Typography>
+                    </TranlsationBlock>
+                </StyledLink>
+            </StyledContainer>
+        </>
     ) : (
         <StyledContainer>
             <div>

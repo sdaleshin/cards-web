@@ -9,6 +9,8 @@ import { RootState } from '../store'
 import { getFullApiUrl } from '../../utils/getFullApiUrl'
 import { addJwtTokenToCookies } from '../../utils/cookies/addJwtTokenToCookies'
 import { removeJwtTokenToCookies } from '../../utils/cookies/removeJwtTokenFromCookies'
+import { parseJwt } from '../../utils/parseJwt'
+import { userInfo } from 'os'
 
 export interface UserInfo {
     email: string
@@ -31,6 +33,8 @@ export const authSlice = createSlice({
     reducers: {
         setJwtToken: (state, action: PayloadAction<string>) => {
             state.jwtToken = action.payload
+            const { name, email } = parseJwt(action.payload)
+            state.userInfo = { name, email }
             addJwtTokenToCookies(action.payload)
         },
         removeJwtToken: (state) => {
@@ -47,6 +51,11 @@ export const selectAuthSlice = (state: RootState) => state.auth
 export const selectLoggedIn = createSelector(
     selectAuthSlice,
     (authState) => !!authState.jwtToken,
+)
+
+export const selectUserInfo = createSelector(
+    selectAuthSlice,
+    (authState) => authState.userInfo,
 )
 
 export const authWithGoogleCredentials = createAsyncThunk(

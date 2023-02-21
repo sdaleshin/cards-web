@@ -1,10 +1,10 @@
 import { TranslationContainer } from '../../containers/translation-container/TranslationContainer'
-import { Header } from '../../components/header/Header'
+import { HeaderContainer } from '../../containers/header-container/HeaderContainer'
 
 export const TranslationPage = () => {
     return (
         <div>
-            <Header />
+            <HeaderContainer />
             <TranslationContainer />
         </div>
     )
