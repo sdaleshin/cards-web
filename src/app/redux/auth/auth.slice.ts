@@ -10,7 +10,6 @@ import { getFullApiUrl } from '../../utils/getFullApiUrl'
 import { addJwtTokenToCookies } from '../../utils/cookies/addJwtTokenToCookies'
 import { removeJwtTokenToCookies } from '../../utils/cookies/removeJwtTokenFromCookies'
 import { parseJwt } from '../../utils/parseJwt'
-import { userInfo } from 'os'
 
 export interface UserInfo {
     email: string

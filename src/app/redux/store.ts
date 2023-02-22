@@ -19,20 +19,17 @@ const reducer = {
 
 export type RootState = StateFromReducersMapObject<typeof reducer>
 
-export const getStore = (preloadedState?: PreloadedState<RootState>) => {
-    if (!store) {
-        store = configureStore({
-            reducer,
-            middleware: (getDefaultMiddleware) =>
-                getDefaultMiddleware({}).concat([
-                    folderApi.middleware,
-                    dictionaryApi.middleware,
-                ]),
-            devTools: process.env.NODE_ENV !== 'production',
-            preloadedState,
-        })
-    }
-    return store
+export const initializeStore = (preloadedState?: PreloadedState<RootState>) => {
+    return configureStore({
+        reducer,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware({}).concat([
+                folderApi.middleware,
+                dictionaryApi.middleware,
+            ]),
+        devTools: process.env.NODE_ENV !== 'production',
+        preloadedState,
+    })
 }
 
 export type AppDispatch = typeof store.dispatch

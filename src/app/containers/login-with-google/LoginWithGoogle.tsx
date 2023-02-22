@@ -1,10 +1,10 @@
 import { authWithGoogleCredentials } from '../../redux/auth/auth.slice'
-import { getStore } from '../../redux/store'
+import { getClientStore } from '../../../client/getClientStore'
 
 if (typeof window !== 'undefined') {
     // @ts-ignore
     window.handleLoginWithGoogleResponse = (response: any) => {
-        getStore().dispatch(
+        getClientStore().dispatch(
             authWithGoogleCredentials({
                 credential: response.credential,
                 clientId: response.clientId,
