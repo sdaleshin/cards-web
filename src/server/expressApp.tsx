@@ -17,7 +17,9 @@ app.use(express.static('./build/client'))
 
 app.get('*', (req, res) => {
     const store = getStore()
-    store.dispatch(setJwtToken(req.cookies[AUTH_TOKEN_COOKIE_NAME]))
+    if (req.cookies[AUTH_TOKEN_COOKIE_NAME]) {
+        store.dispatch(setJwtToken(req.cookies[AUTH_TOKEN_COOKIE_NAME]))
+    }
     const sheet = new ServerStyleSheet()
     const appString = renderToString(
         sheet.collectStyles(
