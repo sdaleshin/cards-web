@@ -47,9 +47,14 @@ export const { setJwtToken, removeJwtToken } = authSlice.actions
 
 export const selectAuthSlice = (state: RootState) => state.auth
 
-export const selectLoggedIn = createSelector(
+export const selectJwtToken = createSelector(
     selectAuthSlice,
-    (authState) => !!authState.jwtToken,
+    (authState) => authState.jwtToken,
+)
+
+export const selectLoggedIn = createSelector(
+    selectJwtToken,
+    (jwtToken) => !!jwtToken,
 )
 
 export const selectUserInfo = createSelector(

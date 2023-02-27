@@ -8,12 +8,5 @@ export const FolderListContainer = () => {
         return null
     }
 
-    return (
-        <FolderList
-            folders={[
-                { id: 'id1', title: 'title1' },
-                { id: 'id2', title: 'title2' },
-            ]}
-        />
-    )
+    return <FolderList folders={folders} />
 }

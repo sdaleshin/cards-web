@@ -18,7 +18,7 @@ const StyledContainer = styled.div`
     justify-content: center;
 `
 
-const TranlsationBlock = styled.div`
+const NavigationBlock = styled.div`
     border: 1px solid #e2e2e4;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -37,23 +37,23 @@ export const HomePage = () => {
             <HeaderContainer />
             <StyledContainer>
                 <StyledLink to="/translation">
-                    <TranlsationBlock>
+                    <NavigationBlock>
                         <Typography type={TypographyType.H1}>
                             Translation
                         </Typography>
-                    </TranlsationBlock>
+                    </NavigationBlock>
                 </StyledLink>
                 <StyledLink to="/folders">
-                    <TranlsationBlock>
+                    <NavigationBlock>
                         <Typography type={TypographyType.H1}>
                             Folders
                         </Typography>
-                    </TranlsationBlock>
+                    </NavigationBlock>
                 </StyledLink>
                 <StyledLink to="/cards">
-                    <TranlsationBlock>
+                    <NavigationBlock>
                         <Typography type={TypographyType.H1}>Cards</Typography>
-                    </TranlsationBlock>
+                    </NavigationBlock>
                 </StyledLink>
             </StyledContainer>
         </>
