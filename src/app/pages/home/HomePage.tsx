@@ -7,10 +7,10 @@ import {
 import { useSelector } from 'react-redux'
 import { selectLoggedIn, selectUserInfo } from '../../redux/auth/auth.slice'
 import { Link } from 'react-router-dom'
-import { HeaderContainer } from '../../containers/header-container/HeaderContainer'
+import { LayoutContainer } from '../../containers/layout-container/LayoutContainer'
 
 const StyledContainer = styled.div`
-    width: 100vw;
+    width: 100%;
     height: calc(100vh - 56px);
     display: flex;
     flex-direction: column;
@@ -33,8 +33,7 @@ const StyledLink = styled(Link)`
 export const HomePage = () => {
     const loggedIn = useSelector(selectLoggedIn)
     return loggedIn ? (
-        <>
-            <HeaderContainer />
+        <LayoutContainer>
             <StyledContainer>
                 <StyledLink to="/translation">
                     <NavigationBlock>
@@ -56,7 +55,7 @@ export const HomePage = () => {
                     </NavigationBlock>
                 </StyledLink>
             </StyledContainer>
-        </>
+        </LayoutContainer>
     ) : (
         <StyledContainer>
             <div>

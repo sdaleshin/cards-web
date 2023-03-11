@@ -4,7 +4,7 @@ export const Menu = ({ items }: { items: IMenuItem[] }) => {
     return (
         <div>
             {items.map((item) => (
-                <MenuItem key={item.id} item={item} />
+                <MenuItem key={item.name} item={item} />
             ))}
         </div>
     )

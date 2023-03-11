@@ -1,4 +1,4 @@
-import { Textarea } from '../../basic/textarea/Textarea'
+import { Input } from '../../basic/input/Input'
 
 export const TranslationInput = ({
     onChange,
@@ -7,5 +7,7 @@ export const TranslationInput = ({
     onChange: (value: string) => void
     value: string
 }) => {
-    return <Textarea value={value} label="word or phrase" onChange={onChange} />
+    return (
+        <Input value={value} placeholder="word or phrase" onChange={onChange} />
+    )
 }

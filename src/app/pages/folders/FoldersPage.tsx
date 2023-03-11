@@ -4,13 +4,13 @@ import {
     TypographyType,
 } from '../../components/basic/typography/Typography'
 import { FolderListContainer } from '../../containers/folder-list-container/FolderListContainer'
+import { LayoutContainer } from '../../containers/layout-container/LayoutContainer'
 
 export const FoldersPage = () => {
     return (
-        <div>
-            <HeaderContainer />
+        <LayoutContainer>
             <Typography type={TypographyType.H1}>Folders</Typography>
             <FolderListContainer />
-        </div>
+        </LayoutContainer>
     )
 }

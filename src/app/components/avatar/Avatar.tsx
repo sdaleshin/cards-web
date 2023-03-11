@@ -2,9 +2,9 @@ import md5 from 'md5'
 import styled from 'styled-components'
 
 const StyledImg = styled.img`
-    height: 36px;
-    width: 36px;
-    border-radius: 36px;
+    height: 24px;
+    width: 24px;
+    border-radius: 24px;
     overflow: hidden;
 `
 
