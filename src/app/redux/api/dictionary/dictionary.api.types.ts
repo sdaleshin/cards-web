@@ -3,7 +3,7 @@ export type DictionaryApiResponse = DictionaryTranslation[]
 export type DictionaryTranslation = {
     word: string
     phonetics: DictionaryPhonetics[]
-    meanings: DictionaryMeanings[]
+    meanings: DictionaryMeaning[]
     license: DictionaryLicense
     sourceUrls: string[]
 }
@@ -20,7 +20,7 @@ export type DictionaryLicense = {
     url: string
 }
 
-export type DictionaryMeanings = {
+export type DictionaryMeaning = {
     partOfSpeech: string
     definitions: DictionaryDefinition[]
     synonyms: string[]

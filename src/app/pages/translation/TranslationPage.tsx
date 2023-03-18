@@ -23,6 +23,7 @@ const Title = styled(Typography)`
 `
 
 export const TranslationPage = () => {
+    console.log('Tranlsation Page render')
     return (
         <LayoutContainer>
             <Container>

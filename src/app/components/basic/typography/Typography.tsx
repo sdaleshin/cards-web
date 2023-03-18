@@ -1,5 +1,6 @@
 import styled, { StyledComponent } from 'styled-components'
 import { createElement } from 'react'
+import { Colors } from '../../../styles/colors'
 
 export enum TypographyType {
     H1 = 'H1',
@@ -59,11 +60,8 @@ const Subtitle = styled.span`
     font-weight: 400;
     font-size: 24px;
     line-height: 29px;
-    /* identical to box height */
 
-    /* Blue/Blue40 */
-
-    color: #1a4d99;
+    color: ${Colors.Gray30};
 `
 
 const BodyLarge = styled.span`

@@ -1,18 +1,18 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { TranslationCard } from './TranslationCard'
+import { MeaningCard } from './MeaningCard'
 import { DictionaryTranslation } from '../../../redux/api/dictionary/dictionary.api.types'
 
 export default {
-    title: 'Components/TranslationCard',
-    component: TranslationCard,
+    title: 'Components/MeaningCard',
+    component: MeaningCard,
     parameters: {
         layout: 'fullscreen',
     },
-} as ComponentMeta<typeof TranslationCard>
+} as ComponentMeta<typeof MeaningCard>
 
-const Template: ComponentStory<typeof TranslationCard> = (args) => (
-    <TranslationCard {...args} />
+const Template: ComponentStory<typeof MeaningCard> = (args) => (
+    <MeaningCard {...args} />
 )
 
 export const Default = Template.bind({})

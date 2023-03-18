@@ -9,6 +9,7 @@ import { dictionaryApi } from './api/dictionary/dictionary.api'
 import { translationSlice } from './translation/translation.slice'
 import { cardApi } from './api/card/card.api'
 import { folderSlice } from './folder/folder.slice'
+import { listenerMiddleware } from './listenerMiddleware'
 
 let store: any = null
 
@@ -27,14 +28,17 @@ export const initializeStore = (preloadedState?: PreloadedState<RootState>) => {
     return configureStore({
         reducer,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware({}).concat([
-                folderApi.middleware,
-                dictionaryApi.middleware,
-                cardApi.middleware,
-            ]),
+            getDefaultMiddleware({})
+                .prepend(listenerMiddleware.middleware)
+                .concat([
+                    folderApi.middleware,
+                    dictionaryApi.middleware,
+                    cardApi.middleware,
+                ]),
         devTools: process.env.NODE_ENV !== 'production',
         preloadedState,
     })
 }
 
 export type AppDispatch = typeof store.dispatch
+export type AppGetState = typeof store.getState

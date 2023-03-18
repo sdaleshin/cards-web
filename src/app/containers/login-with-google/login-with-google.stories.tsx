@@ -6,8 +6,8 @@ import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AuthState } from '../../redux/auth/auth.slice'
 
 const MockedState: AuthState = {
-    loggedIn: false,
     jwtToken: null,
+    userInfo: null,
 }
 
 const Mockstore = ({
@@ -26,12 +26,6 @@ const Mockstore = ({
                     reducers: {
                         setJwtToken: (state, action: PayloadAction<string>) => {
                             state.jwtToken = action.payload
-                        },
-                        setLoggedIn: (
-                            state,
-                            action: PayloadAction<boolean>,
-                        ) => {
-                            state.loggedIn = action.payload
                         },
                     },
                 }).reducer,

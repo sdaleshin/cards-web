@@ -1,29 +1,46 @@
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
+import { listenerMiddleware } from '../listenerMiddleware'
+import trim from 'lodash/trim'
 
 export interface TranslationState {
-    searchInput: string
+    searchInputValue: string
+    word: string
 }
 
 const initialState: TranslationState = {
-    searchInput: '',
+    searchInputValue: '',
+    word: '',
 }
 
 export const translationSlice = createSlice({
     name: 'translation',
     initialState,
     reducers: {
-        setSearchInput: (state, action: PayloadAction<string>) => {
-            state.searchInput = action.payload
+        setSearchInputValue: (state, action: PayloadAction<string>) => {
+            state.searchInputValue = action.payload
+        },
+        setWord: (state, action: PayloadAction<string>) => {
+            state.word = action.payload
         },
     },
 })
 
-export const { setSearchInput } = translationSlice.actions
+export const { setSearchInputValue, setWord } = translationSlice.actions
+
+listenerMiddleware.startListening({
+    actionCreator: setSearchInputValue,
+    effect: async (action, listenerApi) => {
+        listenerApi.cancelActiveListeners()
+        await listenerApi.delay(500)
+        listenerApi.dispatch(setWord(trim(action.payload)))
+    },
+})
 
 export const selectTranslationSlice = (state: RootState) => state.translation
 
-export const selectSearchInput = createSelector(
-    selectTranslationSlice,
-    (translationState) => translationState.searchInput,
-)
+export const selectSearchInput = (state: RootState) =>
+    selectTranslationSlice(state).searchInputValue
+
+export const selectTranslationWord = (state: RootState) =>
+    selectTranslationSlice(state).word
