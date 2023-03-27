@@ -21,7 +21,7 @@ export const DictionaryResultContainer = () => {
                     <DictionaryDefinitionCard
                         definition={definition}
                         word={word}
-                        key={definition.meta.synsetOffset}
+                        key={definition.synsetOffset}
                     />
                 ))}
             </>
