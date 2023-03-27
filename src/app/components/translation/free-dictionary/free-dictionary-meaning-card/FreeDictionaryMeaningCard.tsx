@@ -1,7 +1,10 @@
-import { DictionaryMeaning } from '../../../redux/api/dictionary/dictionary.api.types'
+import { FreeDictionaryMeaning } from '../../../../redux/api/free-dictionary/free-dictionary.api.types'
 import styled from 'styled-components'
-import { Typography, TypographyType } from '../../basic/typography/Typography'
-import { Colors } from '../../../styles/colors'
+import {
+    Typography,
+    TypographyType,
+} from '../../../basic/typography/Typography'
+import { Colors } from '../../../../styles/colors'
 
 const ContainerDiv = styled.div`
     padding: 40px;
@@ -29,12 +32,11 @@ const MeaningContainerDiv = styled.div`
         margin-top: 4px;
     }
 `
-
-export const MeaningCard = ({
+export const FreeDictionaryMeaningCard = ({
     word,
     meaning,
 }: {
-    meaning: DictionaryMeaning
+    meaning: FreeDictionaryMeaning
     word: string
 }) => {
     return (

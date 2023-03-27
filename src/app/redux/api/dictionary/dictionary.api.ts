@@ -1,23 +1,15 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { DICTIONARY_API_URL } from '../../../utils/constants'
-import {
-    DictionaryApiResponse,
-    DictionaryTranslation,
-} from './dictionary.api.types'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQuery } from '../baseQuery'
+import { Definition } from './dictionary.api.types'
 
 export const dictionaryApi = createApi({
     reducerPath: 'dictionaryApi',
-    baseQuery: fetchBaseQuery({ baseUrl: DICTIONARY_API_URL }),
+    baseQuery,
     endpoints: (builder) => ({
-        getTranslation: builder.query<DictionaryTranslation, string>({
-            query: (word: string) => word,
-            transformResponse(
-                response: DictionaryApiResponse,
-            ): DictionaryTranslation {
-                return response[0]
-            },
+        getTranslationFromDictionary: builder.query<Definition[], string>({
+            query: (word: string) => '/dictionary/' + word,
         }),
     }),
 })
 
-export const { useGetTranslationQuery } = dictionaryApi
+export const { useGetTranslationFromDictionaryQuery } = dictionaryApi

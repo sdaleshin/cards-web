@@ -5,11 +5,12 @@ import {
 } from '@reduxjs/toolkit'
 import { authSlice } from './auth/auth.slice'
 import { folderApi } from './api/folder/folder.api'
-import { dictionaryApi } from './api/dictionary/dictionary.api'
+import { freeDictionaryApi } from './api/free-dictionary/free-dictionary.api'
 import { translationSlice } from './translation/translation.slice'
 import { cardApi } from './api/card/card.api'
 import { folderSlice } from './folder/folder.slice'
 import { listenerMiddleware } from './listenerMiddleware'
+import { dictionaryApi } from './api/dictionary/dictionary.api'
 
 let store: any = null
 
@@ -18,8 +19,9 @@ const reducer = {
     [translationSlice.name]: translationSlice.reducer,
     [folderSlice.name]: folderSlice.reducer,
     [folderApi.reducerPath]: folderApi.reducer,
-    [dictionaryApi.reducerPath]: dictionaryApi.reducer,
+    [freeDictionaryApi.reducerPath]: freeDictionaryApi.reducer,
     [cardApi.reducerPath]: cardApi.reducer,
+    [dictionaryApi.reducerPath]: dictionaryApi.reducer,
 }
 
 export type RootState = StateFromReducersMapObject<typeof reducer>
@@ -32,8 +34,9 @@ export const initializeStore = (preloadedState?: PreloadedState<RootState>) => {
                 .prepend(listenerMiddleware.middleware)
                 .concat([
                     folderApi.middleware,
-                    dictionaryApi.middleware,
+                    freeDictionaryApi.middleware,
                     cardApi.middleware,
+                    dictionaryApi.middleware,
                 ]),
         devTools: process.env.NODE_ENV !== 'production',
         preloadedState,

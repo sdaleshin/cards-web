@@ -1,35 +1,20 @@
-export type DictionaryApiResponse = DictionaryTranslation[]
-
-export type DictionaryTranslation = {
-    word: string
-    phonetics: DictionaryPhonetics[]
-    meanings: DictionaryMeaning[]
-    license: DictionaryLicense
-    sourceUrls: string[]
-}
-
-export type DictionaryPhonetics = {
-    text?: string
-    audio: string
-    sourceUrl: string
-    license: DictionaryLicense
-}
-
-export type DictionaryLicense = {
-    name: string
-    url: string
-}
-
-export type DictionaryMeaning = {
-    partOfSpeech: string
-    definitions: DictionaryDefinition[]
+export type Definition = {
+    synsetOffset: number
+    lexFilenum: number
+    pos: string
+    wCnt: number
+    lemma: string
     synonyms: string[]
-    antonyms: string[]
+    lexId: string
+    ptrs: DefinitionPointer[]
+    gloss: string
+    def: string
+    exp: string[]
 }
 
-export type DictionaryDefinition = {
-    definition: string
-    synonyms: string[]
-    antonyms: string[]
-    example: string
+export type DefinitionPointer = {
+    pointerSymbol: string
+    synsetOffset: number
+    pos: string
+    sourceTarget: string
 }
