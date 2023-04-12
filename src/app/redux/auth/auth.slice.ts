@@ -1,15 +1,12 @@
-import {
-    createAsyncThunk,
-    createSelector,
-    createSlice,
-    PayloadAction,
-} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { RootState } from '../store'
 import { getFullApiUrl } from '../../utils/getFullApiUrl'
-import { addJwtTokenToCookies } from '../../utils/cookies/addJwtTokenToCookies'
-import { removeJwtTokenToCookies } from '../../utils/cookies/removeJwtTokenFromCookies'
+import { addAuthTokenToCookies } from '../../utils/cookies/addAuthTokenToCookies'
+import { removeJwtTokenFromCookies } from '../../utils/cookies/removeAuthTokenFromCookies'
 import { parseJwt } from '../../utils/parseJwt'
+import { addRefreshTokenToCookies } from '../../utils/cookies/addRefreshTokenToCookies'
+import { removeRefreshTokenFromCookies } from '../../utils/cookies/removeRefreshTokenFromCookies'
 
 export interface UserInfo {
     email: string
@@ -18,11 +15,13 @@ export interface UserInfo {
 
 export interface AuthState {
     jwtToken: string | null
+    refreshToken: string | null
     userInfo: UserInfo
 }
 
 const initialState: AuthState = {
     jwtToken: null,
+    refreshToken: null,
     userInfo: null,
 }
 
@@ -30,37 +29,41 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setJwtToken: (state, action: PayloadAction<string>) => {
-            state.jwtToken = action.payload
-            const { name, email } = parseJwt(action.payload)
+        setJwtTokenAndRefreshToken: (
+            state,
+            action: PayloadAction<{ token: string; refreshToken: string }>,
+        ) => {
+            const { token, refreshToken } = action.payload
+            state.jwtToken = token
+            state.refreshToken = refreshToken
+            const { name, email } = parseJwt(token)
             state.userInfo = { name, email }
-            addJwtTokenToCookies(action.payload)
+            addAuthTokenToCookies(token)
+            addRefreshTokenToCookies(refreshToken)
         },
-        removeJwtToken: (state) => {
+        removeJwtTokenAndRefreshToken: (state) => {
             state.jwtToken = null
-            removeJwtTokenToCookies()
+            removeJwtTokenFromCookies()
+            removeRefreshTokenFromCookies()
         },
     },
 })
 
-export const { setJwtToken, removeJwtToken } = authSlice.actions
+export const { setJwtTokenAndRefreshToken, removeJwtTokenAndRefreshToken } =
+    authSlice.actions
 
 export const selectAuthSlice = (state: RootState) => state.auth
 
-export const selectJwtToken = createSelector(
-    selectAuthSlice,
-    (authState) => authState.jwtToken,
-)
+export const selectJwtToken = (state: RootState) =>
+    selectAuthSlice(state).jwtToken
 
-export const selectLoggedIn = createSelector(
-    selectJwtToken,
-    (jwtToken) => !!jwtToken,
-)
+export const selectRefreshToken = (state: RootState) =>
+    selectAuthSlice(state).refreshToken
 
-export const selectUserInfo = createSelector(
-    selectAuthSlice,
-    (authState) => authState.userInfo,
-)
+export const selectLoggedIn = (state: RootState) => !!selectJwtToken(state)
+
+export const selectUserInfo = (state: RootState) =>
+    selectAuthSlice(state).userInfo
 
 export const authWithGoogleCredentials = createAsyncThunk(
     'auth/withGoogleCredentials',
@@ -79,7 +82,7 @@ export const authWithGoogleCredentials = createAsyncThunk(
                 { credential, clientId },
                 config,
             )
-            dispatch(setJwtToken(data.token))
+            dispatch(setJwtTokenAndRefreshToken(data))
             return data
         } catch (error) {
             if (error.response && error.response.data.message) {

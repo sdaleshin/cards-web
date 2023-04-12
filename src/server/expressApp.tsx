@@ -7,8 +7,11 @@ import { initializeStore } from '../app/redux/store'
 import { Provider } from 'react-redux'
 import { renderPage } from './renderPage'
 import cookieParser from 'cookie-parser'
-import { setJwtToken } from '../app/redux/auth/auth.slice'
-import { AUTH_TOKEN_COOKIE_NAME } from '../app/utils/constants'
+import { setJwtTokenAndRefreshToken } from '../app/redux/auth/auth.slice'
+import {
+    AUTH_TOKEN_COOKIE_NAME,
+    REFRESH_TOKEN_COOKIE_NAME,
+} from '../app/utils/constants'
 
 const app = express()
 app.use(cookieParser())
@@ -18,7 +21,12 @@ app.use(express.static('./build/client'))
 app.get('*', (req, res) => {
     const store = initializeStore()
     if (req.cookies[AUTH_TOKEN_COOKIE_NAME]) {
-        store.dispatch(setJwtToken(req.cookies[AUTH_TOKEN_COOKIE_NAME]))
+        store.dispatch(
+            setJwtTokenAndRefreshToken({
+                token: req.cookies[AUTH_TOKEN_COOKIE_NAME],
+                refreshToken: req.cookies[REFRESH_TOKEN_COOKIE_NAME],
+            }),
+        )
     }
     const sheet = new ServerStyleSheet()
     const appString = renderToString(

@@ -1,10 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { baseQuery } from '../baseQuery'
+import { baseQueryWithReAuth } from '../baseQuery'
 import { FolderType } from './folder.type'
 
 export const folderApi = createApi({
     reducerPath: 'folderApi',
-    baseQuery,
+    baseQuery: baseQueryWithReAuth,
     endpoints: (builder) => ({
         getFolders: builder.query<FolderType[], void>({
             query: () => '/folders',
