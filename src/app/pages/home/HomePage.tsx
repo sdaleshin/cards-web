@@ -1,4 +1,4 @@
-import { LoginWithGoogle } from '../../containers/login-with-google/LoginWithGoogle'
+import { LoginWithGoogleContainer } from '../../containers/login-with-google-container/LoginWithGoogleContainer'
 import styled from 'styled-components'
 import {
     Typography,
@@ -113,7 +113,7 @@ export const HomePage = () => {
                     <GreetingTypography type={TypographyType.Subtitle}>
                         Welcome to Choodic
                     </GreetingTypography>
-                    <LoginWithGoogle />
+                    <LoginWithGoogleContainer />
                 </MainBlockDiv>
             </MainGridDiv>
             <FooterGridDiv>
