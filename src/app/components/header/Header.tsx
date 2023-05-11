@@ -6,7 +6,6 @@ import { ISelectOption, Select } from '../select/Select'
 import { HeaderUser } from './header-user/HeaderUser'
 
 const StyledHeader = styled.header`
-    height: 56px;
     width: 100%;
     display: flex;
 
@@ -27,6 +26,10 @@ const GridRowDiv = styled.div`
             mobile: { columns: 4, gutters: 3 },
         },
     })}
+    ${onlyMobileAndTablet} {
+        display: flex;
+        flex-direction: column-reverse;
+    }
 `
 
 export const Header = ({

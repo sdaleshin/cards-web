@@ -1,8 +1,12 @@
 import styled from 'styled-components'
 import { ReactElement } from 'react'
+import { onlyMobileAndTablet } from '../../styles/breakpoints'
 
 const LogoSvg = styled.svg`
     margin: 20px 0 64px 23px;
+    ${onlyMobileAndTablet} {
+        margin-top: 64px;
+    }
 `
 
 const Container = styled.div`

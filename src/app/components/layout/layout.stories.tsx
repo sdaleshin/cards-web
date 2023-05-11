@@ -9,6 +9,13 @@ export default {
         layout: 'fullscreen',
         viewport: {
             viewports: {
+                mobile: {
+                    name: 'mobile',
+                    styles: {
+                        width: '390px',
+                        height: '844px',
+                    },
+                },
                 desktop: {
                     name: 'desktop',
                     styles: {
@@ -17,7 +24,7 @@ export default {
                     },
                 },
             },
-            defaultViewport: 'desktop',
+            defaultViewport: 'mobile',
         },
     },
 } as ComponentMeta<typeof Layout>
