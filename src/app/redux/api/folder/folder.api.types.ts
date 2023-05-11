@@ -1,4 +1,4 @@
-export type FolderType = {
+export type FolderApiTypes = {
     id: number
     parentId: number
     name: string

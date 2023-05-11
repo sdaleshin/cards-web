@@ -11,12 +11,15 @@ enum DicType {
 
 const RadioContainerDiv = styled.div`
     padding: 16px 0;
+    font-family: 'Inter', serif;
 `
 
 const RadioInput = styled.input`
     & + & {
         margin-left: 16px;
     }
+    font-family: 'Inter', serif;
+    cursor: pointer;
 `
 
 export const TranslationContainer = () => {

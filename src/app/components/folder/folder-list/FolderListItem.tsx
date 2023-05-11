@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { Colors } from '../../../styles/colors'
+import { gridSizes } from '../../../styles/grid'
 
 export interface IFolderListItem {
     id: number
@@ -6,12 +8,30 @@ export interface IFolderListItem {
 }
 
 const StyledDiv = styled.div`
-    border: 1px solid #e2e2e4;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid ${Colors.Gray90};
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    padding: 24px;
-    width: 500px;
-    height: 100px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    margin-right: 24px;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+    ${gridSizes({
+        width: {
+            mobile: {
+                columns: 4,
+                gutters: 3,
+            },
+            tablet: {
+                columns: 4,
+                gutters: 3,
+            },
+            desktop: {
+                columns: 4,
+                gutters: 3,
+            },
+        },
+    })}
     display: flex;
     justify-content: center;
     align-items: center;

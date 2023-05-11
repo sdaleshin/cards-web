@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { Sidebar } from '../sidebar/Sidebar'
 import { ReactElement, ReactNode } from 'react'
 import { Colors } from '../../styles/colors'
+import { onlyMobileAndTablet } from '../../styles/breakpoints'
 
 const Container = styled.div`
     display: flex;
@@ -12,10 +12,16 @@ const Container = styled.div`
 const SidebarContainer = styled.div`
     width: 200px;
     background: ${Colors.Gray10};
+
+    ${onlyMobileAndTablet} {
+        position: fixed;
+        left: -200px;
+    }
 `
 
 const MainContainer = styled.div`
     flex-grow: 1;
+    width: calc(100vw - 200px);
 `
 
 const HeaderContainer = styled.div``

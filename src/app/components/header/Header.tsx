@@ -1,35 +1,63 @@
 import styled from 'styled-components'
-import { Avatar } from '../avatar/Avatar'
-import { Typography, TypographyType } from '../basic/typography/Typography'
+import { onlyMobileAndTablet } from '../../styles/breakpoints'
+import { Colors } from '../../styles/colors'
+import { gridSizes } from '../../styles/grid'
+import { ISelectOption, Select } from '../select/Select'
+import { HeaderUser } from './header-user/HeaderUser'
 
 const StyledHeader = styled.header`
     height: 56px;
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+
+    ${onlyMobileAndTablet} {
+        background: ${Colors.Gray20};
+    }
 `
 
-const StyledNameAndAvatarContainer = styled.div`
+const GridRowDiv = styled.div`
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    margin-right: 96px;
+    margin-left: 32px;
+    ${gridSizes({
+        width: {
+            desktop: { columns: 12, gutters: 11 },
+            tablet: { columns: 8, gutters: 7 },
+            mobile: { columns: 4, gutters: 3 },
+        },
+    })}
 `
-const StyledName = styled(Typography)`
-    display: block;
-    margin-right: 16px;
-`
-export const Header = ({ name, email }: { name: string; email: string }) => {
+
+export const Header = ({
+    name,
+    email,
+    selectedFolder,
+    folders,
+    onSelectedFolderChange,
+    onSignOutClick,
+}: {
+    name: string
+    email: string
+    selectedFolder: ISelectOption
+    folders: ISelectOption[]
+    onSelectedFolderChange: (folder: ISelectOption) => void
+    onSignOutClick: () => void
+}) => {
     return (
         <StyledHeader>
-            <StyledNameAndAvatarContainer>
-                <div>
-                    <StyledName type={TypographyType.Body}>
-                        {name ?? email}
-                    </StyledName>
-                </div>
-                <Avatar name={name} email={email} />
-            </StyledNameAndAvatarContainer>
+            <GridRowDiv>
+                <Select
+                    options={folders}
+                    onChange={onSelectedFolderChange}
+                    selectedOption={selectedFolder}
+                />
+                <HeaderUser
+                    name={name}
+                    email={email}
+                    onSignOutClick={onSignOutClick}
+                />
+            </GridRowDiv>
         </StyledHeader>
     )
 }

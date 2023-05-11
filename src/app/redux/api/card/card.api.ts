@@ -1,18 +1,18 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReAuth } from '../baseQuery'
-import { CardType } from './cardType'
+import { CardApiTypes } from './card.api.types'
 
 export const cardApi = createApi({
     reducerPath: 'cardApi',
     baseQuery: baseQueryWithReAuth,
     endpoints: (builder) => ({
-        getCardsByFolderId: builder.query<CardType[], number>({
+        getCardsByFolderId: builder.query<CardApiTypes[], number>({
             query: (folderId) => '/cards/by-folder/' + folderId,
         }),
-        getCards: builder.query<CardType[], void>({
+        getCards: builder.query<CardApiTypes[], void>({
             query: () => '/cards',
         }),
-        addCard: builder.mutation<CardType, Partial<CardType>>({
+        addCard: builder.mutation<CardApiTypes, Partial<CardApiTypes>>({
             query(body) {
                 return {
                     url: `cards`,

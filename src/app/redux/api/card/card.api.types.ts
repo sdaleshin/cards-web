@@ -1,4 +1,4 @@
-export type CardType = {
+export type CardApiTypes = {
     id: number
     title: string
     explanation: string

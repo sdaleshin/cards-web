@@ -28,10 +28,11 @@ export const LoginWithGoogle = () => {
             <div
                 className="g_id_signin"
                 data-type="standard"
-                data-shape="pill"
-                data-theme="filled_blue"
+                data-shape="rectangular"
+                data-theme="outline"
                 data-text="signin_with"
                 data-size="large"
+                data-width="360"
                 data-logo_alignment="left"
             />
         </>
