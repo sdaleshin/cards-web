@@ -3,13 +3,13 @@ import { ReactElement, ReactNode } from 'react'
 import { Colors } from '../../styles/colors'
 import { onlyMobileAndTablet } from '../../styles/breakpoints'
 
-const Container = styled.div`
+const ContainerDiv = styled.div`
     display: flex;
     width: 100%;
     min-height: 100vh;
 `
 
-const SidebarContainer = styled.div`
+const SidebarContainerDiv = styled.div`
     width: 200px;
     background: ${Colors.Gray10};
 
@@ -19,13 +19,15 @@ const SidebarContainer = styled.div`
     }
 `
 
-const MainContainer = styled.div`
+const MainContainerDiv = styled.div`
     flex-grow: 1;
     width: calc(100vw - 200px);
 `
 
-const HeaderContainer = styled.div``
-const ChildrenContainer = styled.div`
+const HeaderContainerDiv = styled.div`
+    height: 56px;
+`
+const ChildrenContainerDiv = styled.div`
     background: ${Colors.Gray95};
     min-height: calc(100vh - 56px);
 `
@@ -40,12 +42,12 @@ export const Layout = ({
     children: ReactNode
 }) => {
     return (
-        <Container>
-            <SidebarContainer>{sidebar}</SidebarContainer>
-            <MainContainer>
-                <HeaderContainer>{header}</HeaderContainer>
-                <ChildrenContainer>{children}</ChildrenContainer>
-            </MainContainer>
-        </Container>
+        <ContainerDiv>
+            <SidebarContainerDiv>{sidebar}</SidebarContainerDiv>
+            <MainContainerDiv>
+                <HeaderContainerDiv>{header}</HeaderContainerDiv>
+                <ChildrenContainerDiv>{children}</ChildrenContainerDiv>
+            </MainContainerDiv>
+        </ContainerDiv>
     )
 }
