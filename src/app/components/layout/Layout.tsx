@@ -19,6 +19,7 @@ const SidebarContainerDiv = styled.div<{ mobileSidebarOpened: boolean }>`
         left: ${(p) => (p.mobileSidebarOpened ? '0' : '-200')}px;
         transition: 0.3s;
         height: 100vh;
+        z-index: 2;
     }
 `
 
@@ -29,19 +30,26 @@ const MainContainerDiv = styled.div`
 
 const HeaderContainerDiv = styled.div`
     height: 56px;
+    display: flex;
+    align-items: center;
 `
 const ChildrenContainerDiv = styled.div`
     background: ${Colors.Gray95};
     min-height: calc(100vh - 56px);
+    ${onlyMobileAndTablet} {
+        padding-top: 56px;
+    }
 `
 
 const MobileOpenSidebarSvg = styled.svg`
     display: none;
     ${onlyMobileAndTablet} {
         display: block;
-        position: absolute;
-        top: 19px;
-        left: 12px;
+        position: fixed;
+        top: 7px;
+        left: 0;
+        padding: 12px;
+        z-index: 1;
     }
 `
 
@@ -49,9 +57,11 @@ const CloseMobileSidebarSvg = styled.svg`
     display: none;
     ${onlyMobileAndTablet} {
         display: block;
-        position: absolute;
-        top: 19px;
-        left: 12px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 12px;
+        z-index: 3;
     }
 `
 

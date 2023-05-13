@@ -4,21 +4,42 @@ import { useRef, useState } from 'react'
 import { SelectOption } from './SelectOption'
 import { Colors } from '../../styles/colors'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
+import { onlyMobileAndTablet } from '../../styles/breakpoints'
 
 export interface ISelectOption {
     id: number
     name: string
 }
 
-const RowDiv = styled.div`
+const RowDiv = styled.div<{ fullWidthOnMobile: boolean }>`
     display: flex;
     height: 48px;
     align-items: center;
     cursor: pointer;
+    ${(p) =>
+        p.fullWidthOnMobile
+            ? `
+        ${onlyMobileAndTablet} {
+            width: 100vw;
+            justify-content: center;
+        }
+    `
+            : ``}
 `
 
-const ContainerDiv = styled.div`
+const ContainerDiv = styled.div<{ fullWidthOnMobile: boolean }>`
     display: inline;
+    ${(p) =>
+        p.fullWidthOnMobile
+            ? `
+        ${onlyMobileAndTablet} {
+            position: absolute;
+            width: 100vw;
+            display: block;
+            background: ${Colors.White}
+        }
+    `
+            : ``}
 `
 
 const StyledSvg = styled.svg`
@@ -26,7 +47,7 @@ const StyledSvg = styled.svg`
     padding-right: 16px;
 `
 
-const OptionsContainerDiv = styled.div`
+const OptionsContainerDiv = styled.div<{ fullWidthOnMobile: boolean }>`
     position: absolute;
     background: ${Colors.White};
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
@@ -35,6 +56,17 @@ const OptionsContainerDiv = styled.div`
     //width: 390px;
     max-height: 400px;
     padding: 12px 0;
+
+    ${(p) =>
+        p.fullWidthOnMobile
+            ? `
+        ${onlyMobileAndTablet} {
+            width: 100vw;
+            margin-top: 0;
+            box-shadow: none;
+        }
+    `
+            : ``}
 `
 
 const SelectedOptionTypography = styled(Typography)`
@@ -46,10 +78,14 @@ export const Select = ({
     options,
     selectedOption,
     onChange,
+    fullWidthOnMobile = false,
+    className,
 }: {
     options: ISelectOption[]
     selectedOption?: ISelectOption
     onChange: (option: ISelectOption) => void
+    fullWidthOnMobile?: boolean
+    className?: string
 }) => {
     const [optionsShown, setOptionsShown] = useState(false)
     const ref = useRef()
@@ -66,8 +102,15 @@ export const Select = ({
     useOnClickOutside(ref, () => setOptionsShown(false))
 
     return (
-        <ContainerDiv ref={ref}>
-            <RowDiv onClick={handleTriggerClick}>
+        <ContainerDiv
+            ref={ref}
+            fullWidthOnMobile={fullWidthOnMobile}
+            className={className}
+        >
+            <RowDiv
+                onClick={handleTriggerClick}
+                fullWidthOnMobile={fullWidthOnMobile}
+            >
                 <SelectedOptionTypography type={TypographyType.Body}>
                     {selectedOption?.name ?? 'Choose'}
                 </SelectedOptionTypography>
@@ -87,7 +130,7 @@ export const Select = ({
                 </StyledSvg>
             </RowDiv>
             {optionsShown && (
-                <OptionsContainerDiv>
+                <OptionsContainerDiv fullWidthOnMobile={fullWidthOnMobile}>
                     {options.map((option) => (
                         <SelectOption
                             key={option.id}
