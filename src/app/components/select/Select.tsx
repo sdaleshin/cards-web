@@ -1,5 +1,5 @@
 import { Typography, TypographyType } from '../basic/typography/Typography'
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { useRef, useState } from 'react'
 import { SelectOption } from './SelectOption'
 import { Colors } from '../../styles/colors'
@@ -10,6 +10,11 @@ export interface ISelectOption {
     id: number
     name: string
 }
+
+const openAnimation = keyframes`
+ 0% { max-height: 0; }
+ 100% { max-height: 400px;}
+`
 
 const RowDiv = styled.div<{ fullWidthOnMobile: boolean }>`
     display: flex;
@@ -59,13 +64,15 @@ const OptionsContainerDiv = styled.div<{ fullWidthOnMobile: boolean }>`
 
     ${(p) =>
         p.fullWidthOnMobile
-            ? `
-        ${onlyMobileAndTablet} {
-            width: 100vw;
-            margin-top: 0;
-            box-shadow: none;
-        }
-    `
+            ? css`
+                  ${onlyMobileAndTablet} {
+                      width: 100vw;
+                      margin-top: 0;
+                      box-shadow: none;
+                      border-radius: 0;
+                      animation: ${openAnimation} 0.3s;
+                  }
+              `
             : ``}
 `
 

@@ -58,7 +58,7 @@ const CloseMobileSidebarSvg = styled.svg`
     ${onlyMobileAndTablet} {
         display: block;
         position: fixed;
-        top: 0;
+        top: 2px;
         left: 0;
         padding: 12px;
         z-index: 3;
