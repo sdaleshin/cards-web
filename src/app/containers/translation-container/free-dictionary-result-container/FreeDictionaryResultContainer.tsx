@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectTranslationWord } from '../../../redux/translation/translation.slice'
 import { useGetTranslationFromFreeDictionaryQuery } from '../../../redux/api/free-dictionary/free-dictionary.api'
-import { FreeDictionaryMeaningCard } from '../../../components/translation/free-dictionary/free-dictionary-meaning-card/FreeDictionaryMeaningCard'
+import { TranslationCardFreeDic } from '../../../components/translation/translation-card/TranslationCardFreeDic'
 
 export const FreeDictionaryResultContainer = () => {
     const word = useSelector(selectTranslationWord)
@@ -13,10 +13,11 @@ export const FreeDictionaryResultContainer = () => {
         return (
             <>
                 {data.meanings.map((meaning) => (
-                    <FreeDictionaryMeaningCard
+                    <TranslationCardFreeDic
                         meaning={meaning}
                         word={data.word}
                         key={meaning.partOfSpeech}
+                        onClick={() => {}}
                     />
                 ))}
             </>

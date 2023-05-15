@@ -1,5 +1,5 @@
 import styled, { StyledComponent } from 'styled-components'
-import { createElement } from 'react'
+import { createElement, ReactNode } from 'react'
 import { Colors } from '../../../styles/colors'
 
 export enum TypographyType {
@@ -170,7 +170,7 @@ export const Typography = ({
     type,
 }: {
     className?: string
-    children: string
+    children: ReactNode
     type: TypographyType
 }) =>
     createElement(TypographyTypeComponentMap[type], {

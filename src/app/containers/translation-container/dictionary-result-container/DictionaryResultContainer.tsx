@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectTranslationWord } from '../../../redux/translation/translation.slice'
 import { useGetTranslationFromDictionaryQuery } from '../../../redux/api/dictionary/dictionary.api'
-import { DictionaryDefinitionCard } from '../../../components/translation/dictionary/dictionary-definition-card/DictionaryDefinitionCard'
+import { TranslationCardWordnet } from '../../../components/translation/translation-card/TranslationCardWordnet'
 
 export const DictionaryResultContainer = () => {
     const word = useSelector(selectTranslationWord)
@@ -14,14 +14,19 @@ export const DictionaryResultContainer = () => {
         skip: word === '',
     })
 
+    const handleClick = () => {}
+
     if (definitions && definitions.length) {
         return (
             <>
                 {definitions.map((definition) => (
-                    <DictionaryDefinitionCard
+                    <TranslationCardWordnet
                         definition={definition}
                         word={word}
                         key={definition.synsetOffset}
+                        onClick={handleClick}
+                        added={false}
+                        currentFolderName={'Current Folder Name'}
                     />
                 ))}
             </>
