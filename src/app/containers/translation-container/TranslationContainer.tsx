@@ -1,56 +1,130 @@
 import { TranslationInputContainer } from './translation-input-container/TranslationInputContainer'
-import { FreeDictionaryResultContainer } from './free-dictionary-result-container/FreeDictionaryResultContainer'
-import { ChangeEvent, useState } from 'react'
-import styled from 'styled-components'
-import { DictionaryResultContainer } from './dictionary-result-container/DictionaryResultContainer'
+import { FunctionComponent, useMemo, useState } from 'react'
+import { TranslationDicType } from '../../components/translation/translation-dic-type/TranslationDicType'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectTranslationWord } from '../../redux/translation/translation.slice'
+import { useTranslationGetTranslation } from './useTranslationGetTranslation'
+import { FreeDictionaryTranslation } from '../../redux/api/free-dictionary/free-dictionary.api.types'
+import { Definition } from '../../redux/api/dictionary/dictionary.api.types'
+import { TranslationCard } from '../../components/translation/translation-card/TranslationCard'
+import {
+    ITranslationData,
+    TranslationDicTypeEnum,
+} from '../../types/translation'
+import { TranslationCardBodyWordnet } from '../../components/translation/translation-card-body/TranslationCardBodyWordnet'
+import { TranslationCardBodyFreeDic } from '../../components/translation/translation-card-body/TranslationCardBodyFreeDic'
+import { selectCurrentFolderId } from '../../redux/folder/folder.slice'
+import { useGetFoldersQuery } from '../../redux/api/folder/folder.api'
+import isEmpty from 'lodash/isEmpty'
+import isNil from 'lodash/isNil'
+import { createCardInCurrentFolder } from '../../redux/card/card.slice'
+import { getHash } from '../../utils/getHash'
+import { useGetCardsByFolderIdQuery } from '../../redux/api/card/card.api'
+import { CardApiTypes } from '../../redux/api/card/card.api.types'
 
-enum DicType {
-    FreeDictionary,
-    Dictionary,
+const getBodyComponentByTranslationDicTypeEnum = (
+    dicType: TranslationDicTypeEnum,
+): FunctionComponent<ITranslationData> => {
+    if (dicType === TranslationDicTypeEnum.Wordnet) {
+        return TranslationCardBodyWordnet
+    } else if (dicType === TranslationDicTypeEnum.FreeDictionary) {
+        return TranslationCardBodyFreeDic
+    }
 }
 
-const RadioContainerDiv = styled.div`
-    padding: 16px 0;
-    font-family: 'Inter', serif;
-`
-
-const RadioInput = styled.input`
-    & + & {
-        margin-left: 16px;
+const prepareData = (
+    data: Definition[] | FreeDictionaryTranslation,
+    dicType: TranslationDicTypeEnum,
+    word: string,
+    folderId: number,
+    cards: CardApiTypes[],
+) => {
+    if (dicType === TranslationDicTypeEnum.Wordnet) {
+        return (data as Definition[]).map((d) => {
+            const hash = getHash({
+                title: word,
+                explanation: d,
+                folderId,
+                type: dicType,
+            })
+            return {
+                word,
+                partOfSpeech: d.pos,
+                rawData: d,
+                hash,
+                added: !!cards?.find((c) => c.hash === hash),
+            }
+        })
+    } else if (dicType === TranslationDicTypeEnum.FreeDictionary) {
+        return (data as FreeDictionaryTranslation).meanings.map((m) => {
+            const hash = getHash({
+                title: word,
+                explanation: m,
+                folderId,
+                type: dicType,
+            })
+            return {
+                word,
+                partOfSpeech: m.partOfSpeech,
+                rawData: m,
+                hash,
+                added: !!cards?.find((c) => c.hash === hash),
+            }
+        })
     }
-    font-family: 'Inter', serif;
-    cursor: pointer;
-`
+}
 
 export const TranslationContainer = () => {
-    const [dicType, setDicType] = useState(DicType.Dictionary)
+    const [dicType, setDicType] = useState(TranslationDicTypeEnum.Wordnet)
+    const word = useSelector(selectTranslationWord)
+    const dispatch = useDispatch()
+    const { isLoading, isError, error, data } = useTranslationGetTranslation(
+        dicType,
+        word,
+    )
+    const currentFolderId = useSelector(selectCurrentFolderId)
+    const { data: cards } = useGetCardsByFolderIdQuery(currentFolderId, {
+        skip: isNil(currentFolderId),
+    })
+    const preparedData = useMemo(
+        () =>
+            isEmpty(data)
+                ? null
+                : prepareData(data, dicType, word, currentFolderId, cards),
+        [data, dicType, word, currentFolderId, cards],
+    )
 
-    const handleDicTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setDicType(+event.target.value)
+    const handleTranslationCardClick = (cardData: ITranslationData) => {
+        dispatch(createCardInCurrentFolder(word, cardData.rawData, dicType))
     }
+
+    const { data: folders } = useGetFoldersQuery()
+    const currentFolderName =
+        folders?.find((f) => f.id === currentFolderId)?.name ?? ''
 
     return (
         <>
             <TranslationInputContainer />
-            <RadioContainerDiv onChange={handleDicTypeChange}>
-                <RadioInput
-                    type="radio"
-                    value={DicType.FreeDictionary}
-                    name="gender"
-                />{' '}
-                FreeDictionary
-                <RadioInput
-                    type="radio"
-                    value={DicType.Dictionary}
-                    name="gender"
-                    defaultChecked={true}
-                />{' '}
-                WordNet
-            </RadioContainerDiv>
-            {dicType === DicType.FreeDictionary && (
-                <FreeDictionaryResultContainer />
+            <TranslationDicType
+                dicType={dicType}
+                onChange={(type) => setDicType(type)}
+            />
+            {!isNil(preparedData) && (
+                <>
+                    {preparedData.map((translationData, index) => (
+                        <TranslationCard
+                            {...translationData}
+                            BodyComponent={getBodyComponentByTranslationDicTypeEnum(
+                                dicType,
+                            )}
+                            onClick={handleTranslationCardClick}
+                            currentFolderName={currentFolderName}
+                            added={translationData.added}
+                            key={translationData.hash}
+                        />
+                    ))}
+                </>
             )}
-            {dicType === DicType.Dictionary && <DictionaryResultContainer />}
         </>
     )
 }

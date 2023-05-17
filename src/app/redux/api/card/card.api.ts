@@ -20,6 +20,30 @@ export const cardApi = createApi({
                     body,
                 }
             },
+            async onQueryStarted(card, { dispatch, queryFulfilled }) {
+                const patchResult = dispatch(
+                    cardApi.util.updateQueryData(
+                        'getCardsByFolderId',
+                        card.folderId,
+                        (draft) => {
+                            draft.push(card as CardApiTypes)
+                            // console.log('draft', draft)
+                            // Object.assign(draft, card)
+                        },
+                    ),
+                )
+                try {
+                    await queryFulfilled
+                } catch {
+                    patchResult.undo()
+
+                    /**
+                     * Alternatively, on failure you can invalidate the corresponding cache tags
+                     * to trigger a re-fetch:
+                     * dispatch(api.util.invalidateTags(['Post']))
+                     */
+                }
+            },
         }),
     }),
 })
