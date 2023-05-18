@@ -21,6 +21,7 @@ import { createCardInCurrentFolder } from '../../redux/card/card.slice'
 import { getHash } from '../../utils/getHash'
 import { useGetCardsByFolderIdQuery } from '../../redux/api/card/card.api'
 import { CardApiTypes } from '../../redux/api/card/card.api.types'
+import { generateId } from '../../utils/generateId'
 
 const getBodyComponentByTranslationDicTypeEnum = (
     dicType: TranslationDicTypeEnum,
@@ -44,7 +45,6 @@ const prepareData = (
             const hash = getHash({
                 title: word,
                 explanation: d,
-                folderId,
                 type: dicType,
             })
             return {
@@ -95,7 +95,18 @@ export const TranslationContainer = () => {
     )
 
     const handleTranslationCardClick = (cardData: ITranslationData) => {
-        dispatch(createCardInCurrentFolder(word, cardData.rawData, dicType))
+        const newCard: Omit<CardApiTypes, 'folderId'> = {
+            id: generateId(),
+            title: cardData.word,
+            hash: getHash({
+                title: cardData.word,
+                explanation: cardData.rawData,
+                type: dicType,
+            }),
+            type: dicType,
+            explanation: cardData.rawData,
+        }
+        dispatch(createCardInCurrentFolder(newCard))
     }
 
     const { data: folders } = useGetFoldersQuery()

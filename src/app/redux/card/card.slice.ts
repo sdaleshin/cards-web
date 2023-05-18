@@ -1,18 +1,12 @@
 import { AppDispatch, AppGetState } from '../store'
 import { cardApi } from '../api/card/card.api'
 import { selectCurrentFolderId } from '../folder/folder.slice'
-import { TranslationDicTypeEnum } from '../../types/translation'
+import { CardApiTypes } from '../api/card/card.api.types'
 
 export const createCardInCurrentFolder =
-    (word: string, explanation: object, type: TranslationDicTypeEnum) =>
+    (cardData: Omit<CardApiTypes, 'folderId'>) =>
     (dispatch: AppDispatch, getState: AppGetState) => {
         const folderId = selectCurrentFolderId(getState())
-        dispatch(
-            cardApi.endpoints.addCard.initiate({
-                title: word,
-                folderId,
-                explanation,
-                type,
-            }),
-        )
+
+        dispatch(cardApi.endpoints.addCard.initiate({ ...cardData, folderId }))
     }

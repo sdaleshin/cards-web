@@ -12,7 +12,7 @@ export const cardApi = createApi({
         getCards: builder.query<CardApiTypes[], void>({
             query: () => '/cards',
         }),
-        addCard: builder.mutation<CardApiTypes, Partial<CardApiTypes>>({
+        addCard: builder.mutation<CardApiTypes, CardApiTypes>({
             query(body) {
                 return {
                     url: `cards`,

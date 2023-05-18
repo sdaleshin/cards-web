@@ -1,5 +1,5 @@
 export type CardApiTypes = {
-    id: number
+    id: string
     title: string
     explanation: object
     type: string
