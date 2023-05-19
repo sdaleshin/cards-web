@@ -8,6 +8,11 @@ import {
 } from '../components/basic/typography/Typography'
 import { CheckInCircleSvg } from './CheckInCircleSvg'
 import { CrossInCircleSvg } from './CrossInCircleSvg'
+import { LogoSvg } from './LogoSvg'
+import { DictionarySvg } from './DictionarySvg'
+import { Colors } from '../styles/colors'
+import { CardsSvg } from './CardsSvg'
+import { GroupsSvg } from './GroupsSvg'
 
 const StyledAddInCircleSvg = styled(AddInCircleSvg)`
     path {
@@ -36,15 +41,38 @@ const StyledCrossInCircleSvg = styled(CrossInCircleSvg)`
     }
 `
 
-const RowDiv = styled.div`
+const StyledLogoSvg = styled(LogoSvg)`
+    path {
+        fill: black;
+    }
+`
+
+const StyledDictionarySvg = styled(DictionarySvg)`
+    path {
+        fill: black;
+    }
+`
+const StyledCardsSvg = styled(CardsSvg)`
+    path {
+        fill: black;
+    }
+`
+
+const StyledGroupsSvg = styled(GroupsSvg)`
+    path {
+        fill: black;
+    }
+`
+
+const BlockDiv = styled.div`
     display: flex;
     width: 200px;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    & + & {
-        margin-left: 40px;
-    }
+    padding: 40px;
+    border: 1px solid ${Colors.Gray60};
+    margin-left: -1px;
+    margin-top: -1px;
 `
 
 const ContainerDiv = styled.div`
@@ -57,24 +85,42 @@ const ContainerDiv = styled.div`
 const AllSvgOnPage = () => {
     return (
         <ContainerDiv>
-            <RowDiv>
+            <BlockDiv>
                 <Typography type={TypographyType.Body}>
                     AddInCircleSvg
                 </Typography>
                 <StyledAddInCircleSvg />
-            </RowDiv>
-            <RowDiv>
+            </BlockDiv>
+            <BlockDiv>
                 <Typography type={TypographyType.Body}>
                     CheckInCircleSvg
                 </Typography>
                 <StyledCheckInCircleSvg />
-            </RowDiv>
-            <RowDiv>
+            </BlockDiv>
+            <BlockDiv>
                 <Typography type={TypographyType.Body}>
                     CrossInCircleSvg
                 </Typography>
                 <StyledCrossInCircleSvg />
-            </RowDiv>
+            </BlockDiv>
+            <BlockDiv>
+                <Typography type={TypographyType.Body}>LogoSvg</Typography>
+                <StyledLogoSvg />
+            </BlockDiv>
+            <BlockDiv>
+                <Typography type={TypographyType.Body}>
+                    DictionarySvg
+                </Typography>
+                <StyledDictionarySvg />
+            </BlockDiv>
+            <BlockDiv>
+                <Typography type={TypographyType.Body}>CardsSvg</Typography>
+                <StyledCardsSvg />
+            </BlockDiv>
+            <BlockDiv>
+                <Typography type={TypographyType.Body}>GroupsSvg</Typography>
+                <StyledGroupsSvg />
+            </BlockDiv>
         </ContainerDiv>
     )
 }
