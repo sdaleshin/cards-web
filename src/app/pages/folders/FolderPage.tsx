@@ -4,11 +4,18 @@ import {
     TypographyType,
 } from '../../components/basic/typography/Typography'
 import styled from 'styled-components'
-import { TranslationContainer } from '../../containers/translation-container/TranslationContainer'
 import { onlyDesktop } from '../../styles/breakpoints'
 import { gridSizes } from '../../styles/grid'
+import { useParams } from 'react-router'
+import { useGetFoldersQuery } from '../../redux/api/folder/folder.api'
+import { ISkeletonable, skeletonOnDemand } from '../../styles/skeletonOnDemand'
+import { CardListContainer } from '../../containers/card-list-container/CardListContainer'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setCurrentFolderId } from '../../redux/folder/folder.slice'
 
-const ContainerDiv = styled.div`
+const ContainerDiv = styled.div<ISkeletonable>`
+    ${skeletonOnDemand}
     ${onlyDesktop} {
         margin-left: 32px;
     }
@@ -50,14 +57,25 @@ const TitleTypography = styled(Typography)`
     display: block;
 `
 
-export const TranslationPage = () => {
+export const FolderPage = () => {
+    const { id } = useParams()
+    const dispatch = useDispatch()
+
+    const { isLoading, data: folders } = useGetFoldersQuery()
+
+    const folder = folders?.find((f) => f.id === id)
+
+    useEffect(() => {
+        dispatch(setCurrentFolderId(id))
+    }, [])
+
     return (
-        <LayoutContainer foldersSelectShown={true}>
-            <ContainerDiv>
+        <LayoutContainer>
+            <ContainerDiv skeleton={isLoading}>
                 <TitleTypography type={TypographyType.Subtitle}>
-                    Dictionary
+                    {folder?.name ?? 'SKELETON FOR NAME'}
                 </TitleTypography>
-                <TranslationContainer />
+                <CardListContainer />
             </ContainerDiv>
         </LayoutContainer>
     )

@@ -62,6 +62,7 @@ export const Header = ({
     folders,
     onSelectedFolderChange,
     onSignOutClick,
+    foldersSelectShown,
 }: {
     name: string
     email: string
@@ -69,16 +70,21 @@ export const Header = ({
     folders: ISelectOption[]
     onSelectedFolderChange: (folder: ISelectOption) => void
     onSignOutClick: () => void
+    foldersSelectShown: boolean
 }) => {
     return (
         <StyledHeader>
             <GridRowDiv>
-                <FoldersSelect
-                    options={folders}
-                    onChange={onSelectedFolderChange}
-                    selectedOption={selectedFolder}
-                    fullWidthOnMobile={true}
-                />
+                {foldersSelectShown ? (
+                    <FoldersSelect
+                        options={folders}
+                        onChange={onSelectedFolderChange}
+                        selectedOption={selectedFolder}
+                        fullWidthOnMobile={true}
+                    />
+                ) : (
+                    <div></div>
+                )}
                 <MobileFixedDiv>
                     <LogoSvg
                         width="75"

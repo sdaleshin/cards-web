@@ -12,6 +12,7 @@ const ContainerDiv = styled.div`
         margin-left: 32px;
     }
     padding-top: 40px;
+    margin-left: 8px;
 `
 
 const TitleTypography = styled(Typography)`
@@ -21,7 +22,7 @@ const TitleTypography = styled(Typography)`
 
 export const CardsPage = () => {
     return (
-        <LayoutContainer>
+        <LayoutContainer foldersSelectShown={true}>
             <ContainerDiv>
                 <TitleTypography type={TypographyType.Subtitle}>
                     Cards

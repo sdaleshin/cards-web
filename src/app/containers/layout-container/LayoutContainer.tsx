@@ -3,9 +3,18 @@ import { HeaderContainer } from '../header-container/HeaderContainer'
 import { ReactNode } from 'react'
 import { SidebarContainer } from '../sidebar-container/SidebarContainer'
 
-export const LayoutContainer = ({ children }: { children: ReactNode }) => {
+export const LayoutContainer = ({
+    children,
+    foldersSelectShown = false,
+}: {
+    children: ReactNode
+    foldersSelectShown?: boolean
+}) => {
     return (
-        <Layout sidebar={<SidebarContainer />} header={<HeaderContainer />}>
+        <Layout
+            sidebar={<SidebarContainer />}
+            header={<HeaderContainer foldersSelectShown={foldersSelectShown} />}
+        >
             {children}
         </Layout>
     )

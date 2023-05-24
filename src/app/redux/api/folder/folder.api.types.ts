@@ -1,7 +1,8 @@
 export type FolderApiTypes = {
-    id: number
+    id: string
     parentId: number
     name: string
-    userId: number
+    userId: string
     updatedAt: string
+    cardsCount: number //should be supported in api
 }

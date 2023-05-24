@@ -7,7 +7,7 @@ import {
     TranslationCardStatus,
     TranslationCardStatusEnum,
 } from '../translation-card-status/TranslationCardStatus'
-import { ITranslationData } from '../../../types/translation'
+import { ITranslationData } from '../../../types/translation.types'
 
 const StyledTranslationCardStatus = styled(TranslationCardStatus)`
     position: absolute;
@@ -58,7 +58,7 @@ export const TranslationCard = ({
     BodyComponent,
     word,
     partOfSpeech,
-    rawData,
+    explanation,
     onClick,
     added = false,
     currentFolderName,
@@ -79,7 +79,9 @@ export const TranslationCard = ({
         <ContainerDiv
             borderColor={borderColor}
             borderWidth={borderWidth}
-            onClick={() => onClick({ word, rawData, partOfSpeech })}
+            onClick={() =>
+                onClick({ word, explanation: explanation, partOfSpeech })
+            }
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
@@ -93,7 +95,7 @@ export const TranslationCard = ({
             <BodyContainerDiv>
                 <BodyComponent
                     word={word}
-                    rawData={rawData}
+                    explanation={explanation}
                     partOfSpeech={partOfSpeech}
                 />
             </BodyContainerDiv>

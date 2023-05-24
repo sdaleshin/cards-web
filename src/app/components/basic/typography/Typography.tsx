@@ -24,7 +24,7 @@ const H1 = styled.span`
 
     /* Blue/Blue40 */
 
-    color: #1a4d99;
+    color: ${Colors.Blue40};
 `
 const H2 = styled.span`
     font-family: 'Inter';
@@ -36,7 +36,7 @@ const H2 = styled.span`
 
     /* Blue/Blue40 */
 
-    color: #1a4d99;
+    color: ${Colors.Blue40};
 `
 
 const H3 = styled.span`
@@ -51,7 +51,7 @@ const H3 = styled.span`
 
     /* Blue/Blue40 */
 
-    color: #1a4d99;
+    color: ${Colors.Blue40};
 `
 
 const Subtitle = styled.span`
@@ -73,7 +73,7 @@ const BodyLarge = styled.span`
 
     /* Gray/Gray60 */
 
-    color: #6c6b73;
+    color: ${Colors.Gray60};
 `
 
 const Body = styled.span`
@@ -86,7 +86,7 @@ const Body = styled.span`
 
     /* Gray/Gray60 */
 
-    color: #6c6b73;
+    color: ${Colors.Gray60};
 `
 
 const BodySmall = styled.span`
@@ -99,7 +99,7 @@ const BodySmall = styled.span`
 
     /* Gray/Gray60 */
 
-    color: #6c6b73;
+    color: ${Colors.Gray60};
 `
 
 const PreTitle = styled.span`
@@ -115,7 +115,7 @@ const PreTitle = styled.span`
 
     /* Blue/Blue40 */
 
-    color: #1a4d99;
+    color: ${Colors.Blue40};
 `
 
 const ButtonText = styled.span`
@@ -131,7 +131,7 @@ const ButtonText = styled.span`
 
     /* Blue/Blue40 */
 
-    color: #1a4d99;
+    color: ${Colors.Blue40};
 `
 
 const Link = styled.span`
@@ -146,7 +146,7 @@ const Link = styled.span`
 
     /* Red/Red60 */
 
-    color: #db5353;
+    color: ${Colors.Red60};
 `
 
 const TypographyTypeComponentMap: {

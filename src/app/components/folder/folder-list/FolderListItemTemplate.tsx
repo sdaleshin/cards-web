@@ -1,15 +1,8 @@
+import { ReactNode } from 'react'
 import styled from 'styled-components'
-import { Typography, TypographyType } from '../../basic/typography/Typography'
 import { Colors } from '../../../styles/colors'
 import { gridSizes } from '../../../styles/grid'
 import { onlyDesktop } from '../../../styles/breakpoints'
-
-export interface ICardItem {
-    id: number
-    title: string
-    explanation: string
-    folderId: number
-}
 
 const ContainerDiv = styled.div`
     border: 1px solid ${Colors.Gray90};
@@ -20,10 +13,7 @@ const ContainerDiv = styled.div`
     padding-left: 40px;
     margin-bottom: 24px;
     box-sizing: border-box;
-    ${onlyDesktop} {
-        margin-right: 24px;
-    }
-
+    cursor: pointer;
     ${gridSizes({
         width: {
             mobile: {
@@ -40,21 +30,27 @@ const ContainerDiv = styled.div`
             },
         },
     })}
+    display: flex;
+    justify-content: center;
+    //align-items: center;
+    flex-direction: column;
+    ${onlyDesktop} {
+        margin-right: 24px;
+    }
 `
 
-export const CardListItem = ({ card }: { card: ICardItem }) => {
+export const FolderListItemTemplate = ({
+    children,
+    onClick,
+    className,
+}: {
+    children: ReactNode
+    onClick: () => void
+    className?: string
+}) => {
     return (
-        <ContainerDiv>
-            <div>
-                <Typography type={TypographyType.BodyLarge}>
-                    {card.title}
-                </Typography>
-            </div>
-            {/*<div>*/}
-            {/*    <Typography type={TypographyType.H3}>*/}
-            {/*        {card.explanation}*/}
-            {/*    </Typography>*/}
-            {/*</div>*/}
+        <ContainerDiv onClick={onClick} className={className}>
+            {children}
         </ContainerDiv>
     )
 }

@@ -7,7 +7,7 @@ import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { onlyMobileAndTablet } from '../../styles/breakpoints'
 
 export interface ISelectOption {
-    id: number
+    id: string
     name: string
 }
 

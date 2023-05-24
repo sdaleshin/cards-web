@@ -10,7 +10,7 @@ import { TranslationCard } from '../../components/translation/translation-card/T
 import {
     ITranslationData,
     TranslationDicTypeEnum,
-} from '../../types/translation'
+} from '../../types/translation.types'
 import { TranslationCardBodyWordnet } from '../../components/translation/translation-card-body/TranslationCardBodyWordnet'
 import { TranslationCardBodyFreeDic } from '../../components/translation/translation-card-body/TranslationCardBodyFreeDic'
 import { selectCurrentFolderId } from '../../redux/folder/folder.slice'
@@ -37,7 +37,7 @@ const prepareData = (
     data: Definition[] | FreeDictionaryTranslation,
     dicType: TranslationDicTypeEnum,
     word: string,
-    folderId: number,
+    folderId: string,
     cards: CardApiTypes[],
 ) => {
     if (dicType === TranslationDicTypeEnum.Wordnet) {
@@ -50,7 +50,7 @@ const prepareData = (
             return {
                 word,
                 partOfSpeech: d.pos,
-                rawData: d,
+                explanation: d,
                 hash,
                 added: !!cards?.find((c) => c.hash === hash),
             }
@@ -66,7 +66,7 @@ const prepareData = (
             return {
                 word,
                 partOfSpeech: m.partOfSpeech,
-                rawData: m,
+                explanation: m,
                 hash,
                 added: !!cards?.find((c) => c.hash === hash),
             }
@@ -100,11 +100,11 @@ export const TranslationContainer = () => {
             title: cardData.word,
             hash: getHash({
                 title: cardData.word,
-                explanation: cardData.rawData,
+                explanation: cardData.explanation,
                 type: dicType,
             }),
             type: dicType,
-            explanation: cardData.rawData,
+            explanation: cardData.explanation,
         }
         dispatch(createCardInCurrentFolder(newCard))
     }

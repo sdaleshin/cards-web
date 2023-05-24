@@ -126,7 +126,7 @@ const AllSvgOnPage = () => {
 }
 
 export default {
-    title: 'Svg',
+    title: 'Design System/Icons',
     component: AllSvgOnPage,
     parameters: {
         layout: 'fullscreen',

@@ -1,4 +1,4 @@
-import { ITranslationData } from '../../../types/translation'
+import { ITranslationData } from '../../../types/translation.types'
 import { Typography, TypographyType } from '../../basic/typography/Typography'
 import { FreeDictionaryMeaning } from '../../../redux/api/free-dictionary/free-dictionary.api.types'
 import styled from 'styled-components'
@@ -9,8 +9,10 @@ const MeaningContainerDiv = styled.div`
     }
 `
 
-export const TranslationCardBodyFreeDic = ({ rawData }: ITranslationData) => {
-    const meaning = rawData as FreeDictionaryMeaning
+export const TranslationCardBodyFreeDic = ({
+    explanation,
+}: ITranslationData) => {
+    const meaning = explanation as FreeDictionaryMeaning
     return (
         <>
             {meaning.definitions.map((definition, index) => (

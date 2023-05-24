@@ -6,7 +6,7 @@ export const cardApi = createApi({
     reducerPath: 'cardApi',
     baseQuery: baseQueryWithReAuth,
     endpoints: (builder) => ({
-        getCardsByFolderId: builder.query<CardApiTypes[], number>({
+        getCardsByFolderId: builder.query<CardApiTypes[], string>({
             query: (folderId) => '/cards/by-folder/' + folderId,
         }),
         getCards: builder.query<CardApiTypes[], void>({

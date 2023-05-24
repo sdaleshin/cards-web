@@ -11,6 +11,7 @@ const ContainerDiv = styled.div`
     ${onlyDesktop} {
         margin-left: 32px;
     }
+    margin-left: 8px;
     padding-top: 40px;
 `
 
@@ -19,7 +20,7 @@ const TitleTypography = styled(Typography)`
     display: block;
 `
 
-export const FoldersPage = () => {
+export const FoldersListPage = () => {
     return (
         <LayoutContainer>
             <ContainerDiv>

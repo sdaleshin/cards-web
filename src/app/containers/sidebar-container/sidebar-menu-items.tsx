@@ -1,4 +1,8 @@
-import { getCardsUrl, getFoldersUrl, getTranslationUrl } from '../../utils/urls'
+import {
+    getCardsUrl,
+    getFoldersListUrl,
+    getTranslationUrl,
+} from '../../utils/urls'
 import { DictionarySvg } from '../../svg/DictionarySvg'
 import { CardsSvg } from '../../svg/CardsSvg'
 import { GroupsSvg } from '../../svg/GroupsSvg'
@@ -17,6 +21,6 @@ export const sidebarMenuItems = [
     {
         IconComponent: GroupsSvg,
         name: 'Groups',
-        link: getFoldersUrl(),
+        link: getFoldersListUrl(),
     },
 ]

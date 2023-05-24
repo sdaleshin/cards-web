@@ -1,6 +1,6 @@
 import { useGetTranslationFromFreeDictionaryQuery } from '../../redux/api/free-dictionary/free-dictionary.api'
 import { useGetTranslationFromDictionaryQuery } from '../../redux/api/dictionary/dictionary.api'
-import { TranslationDicTypeEnum } from '../../types/translation'
+import { TranslationDicTypeEnum } from '../../types/translation.types'
 
 export function useTranslationGetTranslation(
     dicType: TranslationDicTypeEnum,

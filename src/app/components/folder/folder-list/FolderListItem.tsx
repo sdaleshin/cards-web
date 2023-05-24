@@ -1,42 +1,68 @@
 import styled from 'styled-components'
 import { Colors } from '../../../styles/colors'
-import { gridSizes } from '../../../styles/grid'
+import { Typography, TypographyType } from '../../basic/typography/Typography'
+import moment from 'moment'
+import { FolderListItemTemplate } from './FolderListItemTemplate'
+import {
+    ISkeletonable,
+    skeletonOnDemand,
+} from '../../../styles/skeletonOnDemand'
 
 export interface IFolderListItem {
-    id: number
+    id: string
     name: string
+    cardsCount: number
+    updatedAt: string
 }
 
-const StyledDiv = styled.div`
-    border: 1px solid ${Colors.Gray90};
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding-top: 32px;
-    padding-bottom: 32px;
-    margin-right: 24px;
-    margin-bottom: 24px;
-    box-sizing: border-box;
-    ${gridSizes({
-        width: {
-            mobile: {
-                columns: 4,
-                gutters: 3,
-            },
-            tablet: {
-                columns: 4,
-                gutters: 3,
-            },
-            desktop: {
-                columns: 4,
-                gutters: 3,
-            },
-        },
-    })}
+const NameTypography = styled(Typography)`
+    color: ${Colors.Gray30};
+    display: block;
+    margin-bottom: 16px;
+`
+const InfoContainerDiv = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
 `
 
-export const FolderListItem = ({ folder }: { folder: IFolderListItem }) => {
-    return <StyledDiv>{folder.name}</StyledDiv>
+const InfoTypography = styled(Typography)`
+    display: block;
+    margin-right: 8px;
+`
+
+const StyledFolderListItemTemplate = styled(
+    FolderListItemTemplate,
+)<ISkeletonable>`
+    ${skeletonOnDemand}
+`
+
+export const FolderListItem = ({
+    folder,
+    skeleton = false,
+    onClick,
+}: {
+    folder: IFolderListItem
+    skeleton?: boolean
+    onClick?: (folder: IFolderListItem) => void
+}) => {
+    return (
+        <StyledFolderListItemTemplate
+            onClick={() => onClick(folder)}
+            skeleton={skeleton}
+        >
+            <NameTypography type={TypographyType.BodyLarge}>
+                {folder.name}
+            </NameTypography>
+            <InfoContainerDiv>
+                <InfoTypography type={TypographyType.BodySmall}>
+                    12 cards
+                </InfoTypography>
+                <InfoTypography type={TypographyType.BodySmall}>
+                    ·
+                </InfoTypography>
+                <InfoTypography type={TypographyType.BodySmall}>
+                    Updated {moment(folder.updatedAt).fromNow()}
+                </InfoTypography>
+            </InfoContainerDiv>
+        </StyledFolderListItemTemplate>
+    )
 }

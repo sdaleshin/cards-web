@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ChangeEvent } from 'react'
-import { TranslationDicTypeEnum } from '../../../types/translation'
+import { TranslationDicTypeEnum } from '../../../types/translation.types'
 
 const RadioContainerDiv = styled.div`
     padding: 16px 0;

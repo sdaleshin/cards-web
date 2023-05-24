@@ -14,7 +14,11 @@ import { ISelectOption } from '../../components/select/Select'
 import { useNavigate } from 'react-router'
 import { getHomeUrl } from '../../utils/urls'
 
-export const HeaderContainer = () => {
+export const HeaderContainer = ({
+    foldersSelectShown,
+}: {
+    foldersSelectShown: boolean
+}) => {
     const { name, email } = useSelector(selectUserInfo)
     const currentFolderId = useSelector(selectCurrentFolderId)
     const { isLoading, data } = useGetFoldersQuery()
@@ -45,6 +49,7 @@ export const HeaderContainer = () => {
             selectedFolder={selectedFolder}
             onSelectedFolderChange={handleSelectedFolderChange}
             onSignOutClick={handleSignOutClick}
+            foldersSelectShown={foldersSelectShown}
         />
     )
 }

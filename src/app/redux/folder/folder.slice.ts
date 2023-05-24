@@ -2,7 +2,7 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
 export interface FolderState {
-    currentFolderId: number | null
+    currentFolderId: string | null
 }
 
 const initialState: FolderState = {
@@ -13,7 +13,7 @@ export const folderSlice = createSlice({
     name: 'folder',
     initialState,
     reducers: {
-        setCurrentFolderId: (state, action: PayloadAction<number>) => {
+        setCurrentFolderId: (state, action: PayloadAction<string>) => {
             state.currentFolderId = action.payload
         },
     },

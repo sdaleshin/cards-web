@@ -9,5 +9,5 @@ export enum TranslationDicTypeEnum {
 export interface ITranslationData {
     word: string
     partOfSpeech: string
-    rawData: Definition | FreeDictionaryMeaning
+    explanation: Definition | FreeDictionaryMeaning
 }

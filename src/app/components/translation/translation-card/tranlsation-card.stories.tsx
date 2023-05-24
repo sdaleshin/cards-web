@@ -19,7 +19,7 @@ export const Default = Template.bind({})
 Default.args = {
     word: 'Hello',
     partOfSpeech: 'n',
-    rawData: {
+    explanation: {
         gloss: 'Greeting',
     },
     BodyComponent: TranslationCardBodyWordnet,
@@ -31,7 +31,7 @@ export const AddedToFolder = Template.bind({})
 AddedToFolder.args = {
     word: 'Hello',
     partOfSpeech: 'n',
-    rawData: {
+    explanation: {
         gloss: 'Greeting',
     },
     BodyComponent: TranslationCardBodyWordnet,

@@ -10,6 +10,10 @@ export const getCardsUrl = () => {
     return '/cards'
 }
 
-export const getFoldersUrl = () => {
+export const getFoldersListUrl = () => {
     return '/folders'
+}
+
+export const getFolderEditUrl = (id: string = ':id') => {
+    return `/folders/${id}`
 }
