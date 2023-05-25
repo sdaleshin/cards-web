@@ -7,8 +7,9 @@ import {
     ISkeletonable,
     skeletonOnDemand,
 } from '../../../styles/skeletonOnDemand'
+import { FolderDTO } from '../../../redux/api/folder/folder.api.types'
 
-export interface IFolderListItem {
+export interface IFolderListItem extends FolderDTO {
     id: string
     name: string
     cardsCount: number
@@ -40,10 +41,14 @@ export const FolderListItem = ({
     skeleton = false,
     onClick,
 }: {
-    folder: IFolderListItem
+    folder: FolderDTO
     skeleton?: boolean
-    onClick?: (folder: IFolderListItem) => void
+    onClick?: (folder: FolderDTO) => void
 }) => {
+    const lastUpdatedDate =
+        folder.updatedAt > folder.cardsUpdatedAt || !folder.cardsUpdatedAt
+            ? folder.updatedAt
+            : folder.cardsUpdatedAt
     return (
         <StyledFolderListItemTemplate
             onClick={() => onClick(folder)}
@@ -54,13 +59,14 @@ export const FolderListItem = ({
             </NameTypography>
             <InfoContainerDiv>
                 <InfoTypography type={TypographyType.BodySmall}>
-                    12 cards
+                    {folder.cardsCount}{' '}
+                    {folder.cardsCount > 1 ? 'cards' : 'card'}
                 </InfoTypography>
                 <InfoTypography type={TypographyType.BodySmall}>
                     ·
                 </InfoTypography>
                 <InfoTypography type={TypographyType.BodySmall}>
-                    Updated {moment(folder.updatedAt).fromNow()}
+                    Updated {moment(lastUpdatedDate).fromNow()}
                 </InfoTypography>
             </InfoContainerDiv>
         </StyledFolderListItemTemplate>

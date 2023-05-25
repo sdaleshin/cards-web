@@ -2,11 +2,11 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
 export interface FolderState {
-    currentFolderId: string | null
+    currentFolderId?: string
 }
 
 const initialState: FolderState = {
-    currentFolderId: null,
+    currentFolderId: undefined,
 }
 
 export const folderSlice = createSlice({

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FolderListItemTemplate } from './FolderListItemTemplate'
 import { Typography, TypographyType } from '../../basic/typography/Typography'
 import { Colors } from '../../../styles/colors'
+import { FolderDTO } from '../../../redux/api/folder/folder.api.types'
 
 const ContainerDiv = styled.div`
     flex-wrap: wrap;
@@ -24,7 +25,7 @@ export const FolderList = ({
     onCreateNewFolderClick,
     onFolderClick,
 }: {
-    folders: IFolderListItem[]
+    folders: FolderDTO[]
     onCreateNewFolderClick: () => void
     onFolderClick: (folder: IFolderListItem) => void
 }) => {
