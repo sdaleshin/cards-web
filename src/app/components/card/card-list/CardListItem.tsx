@@ -1,60 +1,37 @@
 import styled from 'styled-components'
 import { Typography, TypographyType } from '../../basic/typography/Typography'
 import { Colors } from '../../../styles/colors'
-import { gridSizes } from '../../../styles/grid'
-import { onlyDesktop } from '../../../styles/breakpoints'
-
-export interface ICardItem {
-    id: number
-    title: string
-    explanation: string
-    folderId: number
-}
+import { CardDTO } from '../../../redux/api/card/card.api.types'
+import { Explanation } from '../../explanation/Explanation'
 
 const ContainerDiv = styled.div`
+    position: relative;
+    padding: 40px;
+    background: ${Colors.White};
     border: 1px solid ${Colors.Gray90};
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    padding-top: 32px;
-    padding-bottom: 32px;
-    padding-left: 40px;
-    margin-bottom: 24px;
-    box-sizing: border-box;
-    ${onlyDesktop} {
-        margin-right: 24px;
-    }
-
-    ${gridSizes({
-        width: {
-            mobile: {
-                columns: 4,
-                gutters: 3,
-            },
-            tablet: {
-                columns: 4,
-                gutters: 3,
-            },
-            desktop: {
-                columns: 4,
-                gutters: 3,
-            },
-        },
-    })}
+    margin: 16px 0;
 `
 
-export const CardListItem = ({ card }: { card: ICardItem }) => {
+const DividerDiv = styled.div`
+    width: 32px;
+    border-bottom: 1px solid ${Colors.Gray90};
+    margin: 16px 0;
+`
+
+export const CardListItem = ({ card }: { card: CardDTO }) => {
     return (
         <ContainerDiv>
             <div>
-                <Typography type={TypographyType.BodyLarge}>
+                <Typography type={TypographyType.Subtitle}>
                     {card.title}
                 </Typography>
+                <DividerDiv />
+                <div>
+                    <Explanation data={card.explanation} type={card.type} />
+                </div>
             </div>
-            {/*<div>*/}
-            {/*    <Typography type={TypographyType.H3}>*/}
-            {/*        {card.explanation}*/}
-            {/*    </Typography>*/}
-            {/*</div>*/}
         </ContainerDiv>
     )
 }

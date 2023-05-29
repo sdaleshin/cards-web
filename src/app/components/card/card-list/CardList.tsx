@@ -1,17 +1,12 @@
-import { CardListItem, ICardItem } from './CardListItem'
-import styled from 'styled-components'
+import { CardListItem } from './CardListItem'
+import { CardDTO } from '../../../redux/api/card/card.api.types'
 
-const ContainerDiv = styled.div`
-    flex-wrap: wrap;
-    display: flex;
-`
-
-export const CardList = ({ cards }: { cards: ICardItem[] }) => {
+export const CardList = ({ cards }: { cards: CardDTO[] }) => {
     return (
-        <ContainerDiv>
+        <>
             {cards.map((card) => (
                 <CardListItem card={card} key={card.id} />
             ))}
-        </ContainerDiv>
+        </>
     )
 }
