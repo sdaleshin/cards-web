@@ -1,4 +1,4 @@
-export type Definition = {
+export type WordnetDefinition = {
     synsetOffset: number
     lexFilenum: number
     pos: string
@@ -6,13 +6,13 @@ export type Definition = {
     lemma: string
     synonyms: string[]
     lexId: string
-    ptrs: DefinitionPointer[]
+    ptrs: WordnetDefinitionPointer[]
     gloss: string
     def: string
     exp: string[]
 }
 
-export type DefinitionPointer = {
+export type WordnetDefinitionPointer = {
     pointerSymbol: string
     synsetOffset: number
     pos: string

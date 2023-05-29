@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ChangeEvent } from 'react'
-import { TranslationDicTypeEnum } from '../../../types/translation.types'
+import { ExplanationTypeEnum } from '../../../types/explanation.types'
 
 const RadioContainerDiv = styled.div`
     padding: 16px 0;
@@ -19,27 +19,27 @@ export const TranslationDicType = ({
     dicType,
     onChange,
 }: {
-    dicType: TranslationDicTypeEnum
-    onChange: (dicType: TranslationDicTypeEnum) => void
+    dicType: ExplanationTypeEnum
+    onChange: (dicType: ExplanationTypeEnum) => void
 }) => {
     const handleDicTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
-        onChange(event.target.value as TranslationDicTypeEnum)
+        onChange(event.target.value as ExplanationTypeEnum)
     }
 
     return (
         <RadioContainerDiv onChange={handleDicTypeChange}>
             <RadioInput
                 type="radio"
-                value={TranslationDicTypeEnum.FreeDictionary}
+                value={ExplanationTypeEnum.FreeDictionary}
                 name="gender"
-                checked={dicType === TranslationDicTypeEnum.FreeDictionary}
+                checked={dicType === ExplanationTypeEnum.FreeDictionary}
             />{' '}
             FreeDictionary
             <RadioInput
                 type="radio"
-                value={TranslationDicTypeEnum.Wordnet}
+                value={ExplanationTypeEnum.Wordnet}
                 name="gender"
-                checked={dicType === TranslationDicTypeEnum.Wordnet}
+                checked={dicType === ExplanationTypeEnum.Wordnet}
             />{' '}
             WordNet
         </RadioContainerDiv>

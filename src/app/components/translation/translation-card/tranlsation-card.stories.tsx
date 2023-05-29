@@ -2,6 +2,10 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { TranslationCard } from './TranslationCard'
 import { TranslationCardBodyWordnet } from '../translation-card-body/TranslationCardBodyWordnet'
+import {
+    ExplanationDataType,
+    ExplanationTypeEnum,
+} from '../../../types/explanation.types'
 
 export default {
     title: 'Components/Translation/TranslationCard',
@@ -22,9 +26,9 @@ Default.args = {
     explanation: {
         gloss: 'Greeting',
     },
-    BodyComponent: TranslationCardBodyWordnet,
     currentFolderName: 'Current Folder Name',
     added: false,
+    type: ExplanationTypeEnum.Wordnet,
 }
 
 export const AddedToFolder = Template.bind({})

@@ -1,10 +1,10 @@
 import { AppDispatch, AppGetState } from '../store'
 import { cardApi } from '../api/card/card.api'
 import { selectCurrentFolderId } from '../folder/folder.slice'
-import { CardApiTypes } from '../api/card/card.api.types'
+import { CardDTO } from '../api/card/card.api.types'
 
 export const createCardInCurrentFolder =
-    (cardData: Omit<CardApiTypes, 'folderId'>) =>
+    (cardData: Omit<CardDTO, 'folderId'>) =>
     (dispatch: AppDispatch, getState: AppGetState) => {
         const folderId = selectCurrentFolderId(getState())
 

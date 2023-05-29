@@ -8,6 +8,8 @@ import {
     TranslationCardStatusEnum,
 } from '../translation-card-status/TranslationCardStatus'
 import { ITranslationData } from '../../../types/translation.types'
+import { Explanation } from '../../explanation/Explanation'
+import { ExplanationTypeEnum } from '../../../types/explanation.types'
 
 const StyledTranslationCardStatus = styled(TranslationCardStatus)`
     position: absolute;
@@ -55,18 +57,18 @@ const getTranslationCardStatus = (added: boolean, hovered: boolean) => {
 }
 
 export const TranslationCard = ({
-    BodyComponent,
     word,
     partOfSpeech,
     explanation,
     onClick,
     added = false,
     currentFolderName,
+    type,
 }: ITranslationData & {
-    BodyComponent: FunctionComponent<ITranslationData>
     onClick: (data: ITranslationData) => void
     added: boolean
     currentFolderName: string
+    type: ExplanationTypeEnum
 }) => {
     const [hovered, setHovered] = useState(false)
     const translationCardStatus = getTranslationCardStatus(added, hovered)
@@ -93,11 +95,7 @@ export const TranslationCard = ({
             </div>
             <DividerDiv />
             <BodyContainerDiv>
-                <BodyComponent
-                    word={word}
-                    explanation={explanation}
-                    partOfSpeech={partOfSpeech}
-                />
+                <Explanation data={explanation} type={type} />
             </BodyContainerDiv>
             {translationCardStatus !== undefined && (
                 <StyledTranslationCardStatus
