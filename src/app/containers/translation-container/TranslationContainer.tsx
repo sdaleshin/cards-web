@@ -22,19 +22,18 @@ import { ExplanationTypeEnum } from '../../types/explanation.types'
 const prepareData = (
     data: WordnetDefinition[] | FreeDictionaryTranslation,
     dicType: ExplanationTypeEnum,
-    word: string,
     folderId: string,
     cards: CardDTO[],
 ) => {
     if (dicType === ExplanationTypeEnum.Wordnet) {
         return (data as WordnetDefinition[]).map((d) => {
             const hash = getHash({
-                title: word,
+                title: d.word,
                 explanation: d,
                 type: dicType,
             })
             return {
-                word,
+                word: d.word,
                 partOfSpeech: d.pos,
                 explanation: d,
                 hash,
@@ -44,13 +43,13 @@ const prepareData = (
     } else if (dicType === ExplanationTypeEnum.FreeDictionary) {
         return (data as FreeDictionaryTranslation).meanings.map((m) => {
             const hash = getHash({
-                title: word,
+                title: (data as FreeDictionaryTranslation).word,
                 explanation: m,
                 folderId,
                 type: dicType,
             })
             return {
-                word,
+                word: (data as FreeDictionaryTranslation).word,
                 partOfSpeech: m.partOfSpeech,
                 explanation: m,
                 hash,
@@ -76,8 +75,8 @@ export const TranslationContainer = () => {
         () =>
             isEmpty(data)
                 ? null
-                : prepareData(data, dicType, word, currentFolderId, cards),
-        [data, dicType, word, currentFolderId, cards],
+                : prepareData(data, dicType, currentFolderId, cards),
+        [data, dicType, currentFolderId, cards],
     )
 
     const handleTranslationCardClick = (cardData: ITranslationData) => {

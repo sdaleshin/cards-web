@@ -19,6 +19,9 @@ const ExamplesTypography = styled(Typography)`
     color: ${Colors.GoldLight};
     display: block;
     font-style: italic;
+    & + & {
+        margin-top: 4px;
+    }
 `
 
 export const ExplanationWordnet = ({ data }: { data: WordnetDefinition }) => {
@@ -33,9 +36,11 @@ export const ExplanationWordnet = ({ data }: { data: WordnetDefinition }) => {
                 {data.def}
             </GlossTypography>
             <Divider />
-            <ExamplesTypography type={TypographyType.Body}>
-                {data.exp.map((s) => '· ' + s).join('\n')}
-            </ExamplesTypography>
+            {data.exp.map((s, index) => (
+                <ExamplesTypography type={TypographyType.Body} key={index}>
+                    {'· ' + s}
+                </ExamplesTypography>
+            ))}
         </>
     )
 }

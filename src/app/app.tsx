@@ -14,6 +14,7 @@ import { FolderPage } from './pages/folders/FolderPage'
 import { ReactElement } from 'react'
 import { useSelector } from 'react-redux'
 import { selectLoggedIn } from './redux/auth/auth.slice'
+import { GlobalStyle } from './styles/GlobalStyle'
 
 const Protected = ({
     children,
@@ -32,48 +33,51 @@ const Protected = ({
 export const App = () => {
     const loggedIn = useSelector(selectLoggedIn)
     return (
-        <Routes>
-            <Route path={getHomeUrl()} element={<HomePage />} />
-            <Route
-                path={getTranslationUrl()}
-                element={
-                    <Protected loggedIn={loggedIn}>
-                        <TranslationPage />
-                    </Protected>
-                }
-            />
-            <Route
-                path={getCardsUrl()}
-                element={
-                    <Protected loggedIn={loggedIn}>
-                        <CardsPage />
-                    </Protected>
-                }
-            />
-            <Route
-                path={getFoldersListUrl()}
-                element={
-                    <Protected loggedIn={loggedIn}>
-                        <FoldersListPage />
-                    </Protected>
-                }
-            />
-            <Route
-                path={getFolderEditUrl()}
-                element={
-                    <Protected loggedIn={loggedIn}>
-                        <FolderPage />
-                    </Protected>
-                }
-            />
-            <Route
-                path="*"
-                element={
-                    <div>
-                        <h2>404 Page not found</h2>
-                    </div>
-                }
-            />
-        </Routes>
+        <>
+            <GlobalStyle />
+            <Routes>
+                <Route path={getHomeUrl()} element={<HomePage />} />
+                <Route
+                    path={getTranslationUrl()}
+                    element={
+                        <Protected loggedIn={loggedIn}>
+                            <TranslationPage />
+                        </Protected>
+                    }
+                />
+                <Route
+                    path={getCardsUrl()}
+                    element={
+                        <Protected loggedIn={loggedIn}>
+                            <CardsPage />
+                        </Protected>
+                    }
+                />
+                <Route
+                    path={getFoldersListUrl()}
+                    element={
+                        <Protected loggedIn={loggedIn}>
+                            <FoldersListPage />
+                        </Protected>
+                    }
+                />
+                <Route
+                    path={getFolderEditUrl()}
+                    element={
+                        <Protected loggedIn={loggedIn}>
+                            <FolderPage />
+                        </Protected>
+                    }
+                />
+                <Route
+                    path="*"
+                    element={
+                        <div>
+                            <h2>404 Page not found</h2>
+                        </div>
+                    }
+                />
+            </Routes>
+        </>
     )
 }

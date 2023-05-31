@@ -1,4 +1,5 @@
 export type WordnetDefinition = {
+    word: string
     synsetOffset: number
     lexFilenum: number
     pos: string
