@@ -5,9 +5,15 @@ import { CardDTO } from '../../../redux/api/card/card.api.types'
 import { Explanation } from '../../explanation/Explanation'
 import { Divider } from '../../divider/Divider'
 import { skeletonOnDemand } from '../../../styles/skeletonOnDemand'
+import { getPartOfSpeech } from '../../../utils/getPartOfSpeech'
 
 const CardTitleTypography = styled(Typography)`
     display: block;
+`
+
+const PartOfSpeechTypography = styled(Typography)`
+    margin-left: 8px;
+    color: ${Colors.Gray70};
 `
 
 const ContainerDiv = styled.div`
@@ -21,6 +27,11 @@ const ContainerDiv = styled.div`
     margin: 16px 0;
 `
 
+const TitleRowDiv = styled.div`
+    display: flex;
+    align-items: center;
+`
+
 export const CardListItem = ({
     card,
     skeleton = false,
@@ -31,9 +42,14 @@ export const CardListItem = ({
     return (
         <ContainerDiv skeleton={skeleton}>
             <div>
-                <CardTitleTypography type={TypographyType.Subtitle}>
-                    {card.title}
-                </CardTitleTypography>
+                <TitleRowDiv>
+                    <CardTitleTypography type={TypographyType.Subtitle}>
+                        {card.title}
+                    </CardTitleTypography>
+                    <PartOfSpeechTypography type={TypographyType.Body}>
+                        {getPartOfSpeech(card.explanation, card.type)}
+                    </PartOfSpeechTypography>
+                </TitleRowDiv>
                 <Divider />
                 <div>
                     <Explanation data={card.explanation} type={card.type} />
