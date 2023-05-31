@@ -3,6 +3,7 @@ import { Typography, TypographyType } from '../../basic/typography/Typography'
 import { Colors } from '../../../styles/colors'
 import { CardDTO } from '../../../redux/api/card/card.api.types'
 import { Explanation } from '../../explanation/Explanation'
+import { Divider } from '../../divider/Divider'
 
 const ContainerDiv = styled.div`
     position: relative;
@@ -14,12 +15,6 @@ const ContainerDiv = styled.div`
     margin: 16px 0;
 `
 
-const DividerDiv = styled.div`
-    width: 32px;
-    border-bottom: 1px solid ${Colors.Gray90};
-    margin: 16px 0;
-`
-
 export const CardListItem = ({ card }: { card: CardDTO }) => {
     return (
         <ContainerDiv>
@@ -27,7 +22,7 @@ export const CardListItem = ({ card }: { card: CardDTO }) => {
                 <Typography type={TypographyType.Subtitle}>
                     {card.title}
                 </Typography>
-                <DividerDiv />
+                <Divider />
                 <div>
                     <Explanation data={card.explanation} type={card.type} />
                 </div>

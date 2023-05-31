@@ -39,4 +39,6 @@ export enum Colors {
     Yellow80 = '#FFEFB8',
     Yellow90 = '#FFF8DE',
     Yellow95 = '#FFFCF0',
+    Gold = '#8D7676',
+    GoldLight = '#A28A80',
 }
