@@ -12,33 +12,48 @@ export const FolderListSkeleton = () => {
             {[
                 {
                     id: '1',
+                    userId: '1',
+                    parentId: null,
                     name: 'PMBOK 1996',
                     cardsCount: 12,
                     updatedAt: '2023-05-18T19:02:09.189Z',
+                    cardsUpdatedAt: '2023-05-18T19:02:09.189Z',
                 },
                 {
                     id: '2',
+                    userId: '1',
+                    parentId: null,
                     name: 'PMBOK 1996',
                     cardsCount: 12,
                     updatedAt: '2023-05-18T19:02:09.189Z',
+                    cardsUpdatedAt: '2023-05-18T19:02:09.189Z',
                 },
                 {
                     id: '3',
+                    userId: '1',
+                    parentId: null,
                     name: 'PMBOK 1996',
                     cardsCount: 12,
                     updatedAt: '2023-05-18T19:02:09.189Z',
+                    cardsUpdatedAt: '2023-05-18T19:02:09.189Z',
                 },
                 {
                     id: '4',
+                    userId: '1',
+                    parentId: null,
                     name: 'PMBOK 1996',
                     cardsCount: 12,
                     updatedAt: '2023-05-18T19:02:09.189Z',
+                    cardsUpdatedAt: '2023-05-18T19:02:09.189Z',
                 },
                 {
                     id: '5',
+                    userId: '1',
+                    parentId: null,
                     name: 'PMBOK 1996',
                     cardsCount: 12,
                     updatedAt: '2023-05-18T19:02:09.189Z',
+                    cardsUpdatedAt: '2023-05-18T19:02:09.189Z',
                 },
             ].map((folder) => (
                 <FolderListItem

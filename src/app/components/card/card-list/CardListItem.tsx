@@ -4,8 +4,14 @@ import { Colors } from '../../../styles/colors'
 import { CardDTO } from '../../../redux/api/card/card.api.types'
 import { Explanation } from '../../explanation/Explanation'
 import { Divider } from '../../divider/Divider'
+import { skeletonOnDemand } from '../../../styles/skeletonOnDemand'
+
+const CardTitleTypography = styled(Typography)`
+    display: block;
+`
 
 const ContainerDiv = styled.div`
+    ${skeletonOnDemand}
     position: relative;
     padding: 40px;
     background: ${Colors.White};
@@ -15,13 +21,19 @@ const ContainerDiv = styled.div`
     margin: 16px 0;
 `
 
-export const CardListItem = ({ card }: { card: CardDTO }) => {
+export const CardListItem = ({
+    card,
+    skeleton = false,
+}: {
+    card: CardDTO
+    skeleton?: boolean
+}) => {
     return (
-        <ContainerDiv>
+        <ContainerDiv skeleton={skeleton}>
             <div>
-                <Typography type={TypographyType.Subtitle}>
+                <CardTitleTypography type={TypographyType.Subtitle}>
                     {card.title}
-                </Typography>
+                </CardTitleTypography>
                 <Divider />
                 <div>
                     <Explanation data={card.explanation} type={card.type} />
