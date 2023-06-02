@@ -127,11 +127,7 @@ const ButtonText = styled.span`
     /* or 22px */
 
     letter-spacing: 0.03em;
-    text-transform: capitalize;
-
-    /* Blue/Blue40 */
-
-    color: ${Colors.Blue40};
+    color: ${Colors.Gray60};
 `
 
 const Link = styled.span`

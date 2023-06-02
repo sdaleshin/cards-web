@@ -37,6 +37,7 @@ const ContainerDiv = styled.div`
     ${onlyDesktop} {
         margin-right: 24px;
     }
+    background: ${Colors.White};
 `
 
 export const FolderListItemTemplate = ({

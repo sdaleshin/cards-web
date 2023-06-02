@@ -25,6 +25,9 @@ const ContainerDiv = styled.div`
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin: 16px 0;
+    &:last-child {
+        margin-bottom: 0;
+    }
 `
 
 const TitleRowDiv = styled.div`

@@ -15,6 +15,7 @@ import { ReactElement } from 'react'
 import { useSelector } from 'react-redux'
 import { selectLoggedIn } from './redux/auth/auth.slice'
 import { GlobalStyle } from './styles/GlobalStyle'
+import { NewFolderPage } from './pages/folders/NewFolderPage'
 
 const Protected = ({
     children,
@@ -58,6 +59,14 @@ export const App = () => {
                     element={
                         <Protected loggedIn={loggedIn}>
                             <FoldersListPage />
+                        </Protected>
+                    }
+                />
+                <Route
+                    path={getFolderEditUrl('new')}
+                    element={
+                        <Protected loggedIn={loggedIn}>
+                            <NewFolderPage />
                         </Protected>
                     }
                 />

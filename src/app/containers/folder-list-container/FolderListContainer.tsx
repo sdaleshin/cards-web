@@ -16,7 +16,7 @@ export const FolderListContainer = () => {
     const handleFolderClick = (folder: IFolderListItem) =>
         navigate(getFolderEditUrl(folder.id))
 
-    const handleCreateNewFolderClick = () => {}
+    const handleCreateNewFolderClick = () => navigate(getFolderEditUrl('new'))
 
     return (
         <FolderList
