@@ -1,8 +1,11 @@
 import { SyntheticEvent } from 'react'
 import styled from 'styled-components'
 import { Colors } from '../../../styles/colors'
+import { Typography, TypographyType } from '../typography/Typography'
 
-const StyledInput = styled.input`
+const ContainerDiv = styled.div``
+
+const StyledInput = styled.input<{ error: boolean }>`
     outline: none;
     padding: 0 24px;
     width: 100%;
@@ -14,30 +17,47 @@ const StyledInput = styled.input`
     font-size: 16px;
     line-height: 19px;
 
-    border: 1px solid #e2e2e4;
+    border: 1px solid ${(p) => (p.error ? Colors.Red60 : Colors.Gray90)};
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     box-sizing: border-box;
 
     color: ${Colors.Gray30};
 `
+const ErrorTypography = styled(Typography)`
+    color: ${Colors.Red60};
+    position: absolute;
+    display: block;
+`
 
 export const Input = ({
     value,
     placeholder,
     onChange,
+    errorMessage,
+    className,
 }: {
     value: string
     placeholder?: string
     onChange: (value: string) => void
+    errorMessage?: string
+    className: string
 }) => {
     const handleChange = (e: SyntheticEvent<HTMLInputElement>) =>
         onChange(e.currentTarget.value)
     return (
-        <StyledInput
-            value={value}
-            onChange={handleChange}
-            placeholder={placeholder}
-        />
+        <ContainerDiv className={className}>
+            <StyledInput
+                value={value}
+                onChange={handleChange}
+                placeholder={placeholder}
+                error={!!errorMessage}
+            />
+            {!!errorMessage && (
+                <ErrorTypography type={TypographyType.BodySmall}>
+                    {errorMessage}
+                </ErrorTypography>
+            )}
+        </ContainerDiv>
     )
 }

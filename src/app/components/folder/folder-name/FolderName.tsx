@@ -11,8 +11,16 @@ const ContainerDiv = styled.div`
     align-items: center;
 `
 
+const NameInput = styled(Input)`
+    flex: 1;
+`
+
 const NameTypography = styled(Typography)`
     display: block;
+`
+
+const ButtonsContainerDiv = styled.div`
+    display: flex;
 `
 
 export const FolderName = ({
@@ -22,6 +30,7 @@ export const FolderName = ({
     onEditClick,
     onSaveClick,
     onCancelClick,
+    validateFolderName,
 }: {
     name?: string
     inEditMode?: boolean
@@ -29,11 +38,21 @@ export const FolderName = ({
     onEditClick?: () => void
     onSaveClick?: (name: string) => void
     onCancelClick?: () => void
+    validateFolderName: (name: string) => string
 }) => {
     const [inputFolderName, setInputFolderName] = useState(name)
+    const [errorMessage, setErrorMessage] = useState('')
     useEffect(() => {
         setInputFolderName(name)
     }, [name, inEditMode])
+    const handleSaveClick = () => {
+        const errorMessage = validateFolderName(inputFolderName)
+        if (errorMessage) {
+            setErrorMessage(errorMessage)
+        } else {
+            onSaveClick(inputFolderName)
+        }
+    }
     return (
         <ContainerDiv className={className}>
             {!inEditMode && (
@@ -50,16 +69,21 @@ export const FolderName = ({
             )}
             {inEditMode && (
                 <>
-                    <Input
+                    <NameInput
                         value={inputFolderName}
-                        onChange={setInputFolderName}
+                        onChange={(value) => {
+                            setInputFolderName(value)
+                            if (errorMessage) {
+                                setErrorMessage('')
+                            }
+                        }}
                         placeholder={'Enter new folder name'}
+                        errorMessage={errorMessage}
                     />
-                    <Button
-                        text="Save"
-                        onClick={() => onSaveClick(inputFolderName)}
-                    />
-                    <Button text="Cancel" onClick={onCancelClick} />
+                    <ButtonsContainerDiv>
+                        <Button text="Save" onClick={handleSaveClick} />
+                        <Button text="Cancel" onClick={onCancelClick} />
+                    </ButtonsContainerDiv>
                 </>
             )}
         </ContainerDiv>

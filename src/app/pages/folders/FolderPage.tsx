@@ -3,13 +3,20 @@ import styled from 'styled-components'
 import { onlyDesktop } from '../../styles/breakpoints'
 import { gridSizes } from '../../styles/grid'
 import { useParams } from 'react-router'
-import { useGetFoldersQuery } from '../../redux/api/folder/folder.api'
+import {
+    useGetFoldersQuery,
+    useUpdateFolderMutation,
+} from '../../redux/api/folder/folder.api'
 import { ISkeletonable, skeletonOnDemand } from '../../styles/skeletonOnDemand'
 import { CardListContainer } from '../../containers/card-list-container/CardListContainer'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setCurrentFolderId } from '../../redux/folder/folder.slice'
+import {
+    setCurrentFolderId,
+    validateFolderName,
+} from '../../redux/folder/folder.slice'
 import { FolderName } from '../../components/folder/folder-name/FolderName'
+import trim from 'lodash/trim'
 
 const ContainerDiv = styled.div<ISkeletonable>`
     ${skeletonOnDemand}
@@ -57,10 +64,16 @@ export const FolderPage = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
     const [inEditMode, setInEditMode] = useState(false)
+    const [updateFolder] = useUpdateFolderMutation()
 
     const { isLoading, data: folders } = useGetFoldersQuery()
 
     const folder = folders?.find((f) => f.id === id)
+
+    const handleSaveClick = (name: string) => {
+        updateFolder({ ...folder, name: trim(name) })
+        setInEditMode(false)
+    }
 
     useEffect(() => {
         dispatch(setCurrentFolderId(id))
@@ -74,6 +87,11 @@ export const FolderPage = () => {
                     inEditMode={inEditMode}
                     onEditClick={() => setInEditMode(true)}
                     onCancelClick={() => setInEditMode(false)}
+                    onSaveClick={handleSaveClick}
+                    validateFolderName={(name) =>
+                        name !== folder?.name &&
+                        validateFolderName(trim(name), folders)
+                    }
                 />
                 <CardListContainer />
             </ContainerDiv>

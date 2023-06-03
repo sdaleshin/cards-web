@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReAuth } from '../baseQuery'
 import { CardDTO } from './card.api.types'
 import { folderApi } from '../folder/folder.api'
+import { getCurrentDateString } from '../../../utils/getCurrentDateString'
 
 export const cardApi = createApi({
     reducerPath: 'cardApi',
@@ -28,8 +29,6 @@ export const cardApi = createApi({
                         card.folderId,
                         (draft) => {
                             draft.push(card as CardDTO)
-                            // console.log('draft', draft)
-                            // Object.assign(draft, card)
                         },
                     ),
                 )
@@ -43,10 +42,7 @@ export const cardApi = createApi({
                             )
 
                             folder.cardsCount = folder.cardsCount + 1
-                            folder.cardsUpdatedAt = new Date().toJSON()
-                            // draft.draft.push(card as CardDTO)
-                            // // console.log('draft', draft)
-                            // // Object.assign(draft, card)
+                            folder.cardsUpdatedAt = getCurrentDateString()
                         },
                     ),
                 )
@@ -55,11 +51,6 @@ export const cardApi = createApi({
                 } catch {
                     updateCardsByFolderIdPatch.undo()
                     updateFoldersPatch.undo()
-                    /**
-                     * Alternatively, on failure you can invalidate the corresponding cache tags
-                     * to trigger a re-fetch:
-                     * dispatch(api.util.invalidateTags(['Post']))
-                     */
                 }
             },
         }),

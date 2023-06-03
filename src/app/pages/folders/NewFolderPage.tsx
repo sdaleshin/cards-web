@@ -3,10 +3,16 @@ import styled from 'styled-components'
 import { onlyDesktop } from '../../styles/breakpoints'
 import { gridSizes } from '../../styles/grid'
 import { useNavigate } from 'react-router'
-import { useAddFolderMutation } from '../../redux/api/folder/folder.api'
+import {
+    useAddFolderMutation,
+    useGetFoldersQuery,
+} from '../../redux/api/folder/folder.api'
 import { FolderName } from '../../components/folder/folder-name/FolderName'
 import { getFolderEditUrl, getFoldersListUrl } from '../../utils/urls'
 import { generateId } from '../../utils/generateId'
+import { validateFolderName } from '../../redux/folder/folder.slice'
+import { getCurrentDateString } from '../../utils/getCurrentDateString'
+import trim from 'lodash/trim'
 
 const ContainerDiv = styled.div`
     ${onlyDesktop} {
@@ -49,13 +55,14 @@ export const NewFolderPage = () => {
     const navigate = useNavigate()
 
     const [addFolder] = useAddFolderMutation()
+    const { data: folders } = useGetFoldersQuery()
 
     const handleSaveClick = (name: string) => {
-        const currentDate = new Date().toJSON()
+        const currentDate = getCurrentDateString()
         const id = generateId()
         addFolder({
             id,
-            name,
+            name: trim(name),
             parentId: null,
             cardsCount: 0,
             cardsUpdatedAt: currentDate,
@@ -73,6 +80,9 @@ export const NewFolderPage = () => {
                     inEditMode={true}
                     onSaveClick={handleSaveClick}
                     onCancelClick={handleCancelClick}
+                    validateFolderName={(name) =>
+                        validateFolderName(trim(name), folders)
+                    }
                 />
                 {/*<CardListContainer />*/}
             </ContainerDiv>

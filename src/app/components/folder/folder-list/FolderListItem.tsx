@@ -8,6 +8,7 @@ import {
     skeletonOnDemand,
 } from '../../../styles/skeletonOnDemand'
 import { FolderDTO } from '../../../redux/api/folder/folder.api.types'
+import { getFolderLastUpdatedAt } from '../../../redux/folder/folder.slice'
 
 export interface IFolderListItem extends FolderDTO {
     id: string
@@ -45,10 +46,6 @@ export const FolderListItem = ({
     skeleton?: boolean
     onClick?: (folder: FolderDTO) => void
 }) => {
-    const lastUpdatedDate =
-        folder.updatedAt > folder.cardsUpdatedAt || !folder.cardsUpdatedAt
-            ? folder.updatedAt
-            : folder.cardsUpdatedAt
     return (
         <StyledFolderListItemTemplate
             onClick={() => onClick(folder)}
@@ -66,7 +63,7 @@ export const FolderListItem = ({
                     ·
                 </InfoTypography>
                 <InfoTypography type={TypographyType.BodySmall}>
-                    Updated {moment(lastUpdatedDate).fromNow()}
+                    Updated {moment(getFolderLastUpdatedAt(folder)).fromNow()}
                 </InfoTypography>
             </InfoContainerDiv>
         </StyledFolderListItemTemplate>

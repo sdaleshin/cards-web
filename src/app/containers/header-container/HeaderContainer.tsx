@@ -7,6 +7,7 @@ import { Header } from '../../components/header/Header'
 import { useGetFoldersQuery } from '../../redux/api/folder/folder.api'
 import { useEffect } from 'react'
 import {
+    getFolderLastUpdatedAt,
     selectCurrentFolderId,
     setCurrentFolderId,
 } from '../../redux/folder/folder.slice'
@@ -26,8 +27,13 @@ export const HeaderContainer = ({
     const navigate = useNavigate()
     useEffect(() => {
         if (data) {
-            if (data.length) {
-                dispatch(setCurrentFolderId(data[0].id))
+            if (data.length && !currentFolderId) {
+                const sorted = [...data].sort((a, b) =>
+                    getFolderLastUpdatedAt(a) > getFolderLastUpdatedAt(b)
+                        ? -1
+                        : 1,
+                )
+                dispatch(setCurrentFolderId(sorted[0].id))
             }
         }
     }, [data])
@@ -36,7 +42,8 @@ export const HeaderContainer = ({
             ? data.find((el) => el.id === currentFolderId)
             : null
     const handleSelectedFolderChange = (folder: ISelectOption) =>
-        setCurrentFolderId(folder.id)
+        dispatch(setCurrentFolderId(folder.id))
+
     const handleSignOutClick = () => {
         dispatch(removeJwtTokenAndRefreshToken())
         navigate(getHomeUrl())
