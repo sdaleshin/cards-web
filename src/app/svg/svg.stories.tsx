@@ -14,6 +14,7 @@ import { Colors } from '../styles/colors'
 import { CardsSvg } from './CardsSvg'
 import { GroupsSvg } from './GroupsSvg'
 import { EditSvg } from './EditSvg'
+import { CardsBigSvg } from './CardsBigSvg'
 
 const StyledAddInCircleSvg = styled(AddInCircleSvg)`
     path {
@@ -67,7 +68,7 @@ const StyledGroupsSvg = styled(GroupsSvg)`
 
 const BlockDiv = styled.div`
     display: flex;
-    width: 200px;
+    width: 300px;
     justify-content: space-between;
     align-items: center;
     padding: 40px;
@@ -125,6 +126,10 @@ const AllSvgOnPage = () => {
             <BlockDiv>
                 <Typography type={TypographyType.Body}>EditSvg</Typography>
                 <EditSvg />
+            </BlockDiv>
+            <BlockDiv>
+                <Typography type={TypographyType.Body}>CardsBigSvg</Typography>
+                <CardsBigSvg />
             </BlockDiv>
         </ContainerDiv>
     )

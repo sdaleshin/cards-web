@@ -60,7 +60,7 @@ const OptionsContainerDiv = styled.div<{ fullWidthOnMobile: boolean }>`
     margin-top: 8px;
     //width: 390px;
     max-height: 400px;
-    padding: 12px 0;
+    padding: 12px 12px 12px 0;
 
     ${(p) =>
         p.fullWidthOnMobile

@@ -5,16 +5,16 @@ import { selectCurrentFolderId } from '../../redux/folder/folder.slice'
 import isNil from 'lodash/isNil'
 import { CardListSkeleton } from '../../components/card/card-list/CardListSkeleton'
 
-export const CardListContainer = () => {
+export const CardListContainer = ({ folderId }: { folderId?: string }) => {
     const currentFolderId = useSelector(selectCurrentFolderId)
-    const { isLoading, data: cards } = useGetCardsByFolderIdQuery(
-        currentFolderId,
-        {
-            skip: isNil(currentFolderId),
-        },
-    )
+    if (!folderId) {
+        folderId = currentFolderId
+    }
+    const { isLoading, data: cards } = useGetCardsByFolderIdQuery(folderId, {
+        skip: isNil(folderId),
+    })
 
-    if (isLoading || !currentFolderId) {
+    if (isLoading || !folderId) {
         return <CardListSkeleton />
     }
 

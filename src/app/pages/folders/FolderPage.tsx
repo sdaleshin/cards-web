@@ -93,7 +93,7 @@ export const FolderPage = () => {
                         validateFolderName(trim(name), folders)
                     }
                 />
-                <CardListContainer />
+                <CardListContainer folderId={id} />
             </ContainerDiv>
         </LayoutContainer>
     )
