@@ -1,68 +1,29 @@
 import { TranslationInputContainer } from './translation-input-container/TranslationInputContainer'
-import { FunctionComponent, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { TranslationDicType } from '../../components/translation/translation-dic-type/TranslationDicType'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { selectTranslationWord } from '../../redux/translation/translation.slice'
 import { useTranslationGetTranslation } from './useTranslationGetTranslation'
-import { FreeDictionaryTranslation } from '../../redux/api/free-dictionary/free-dictionary.api.types'
-import { WordnetDefinition } from '../../redux/api/dictionary/dictionary.api.types'
 import { TranslationCard } from '../../components/translation/translation-card/TranslationCard'
 import { ITranslationData } from '../../types/translation.types'
 import { selectCurrentFolderId } from '../../redux/folder/folder.slice'
 import { useGetFoldersQuery } from '../../redux/api/folder/folder.api'
 import isEmpty from 'lodash/isEmpty'
 import isNil from 'lodash/isNil'
-import { createCardInCurrentFolder } from '../../redux/card/card.slice'
-import { getHash } from '../../utils/getHash'
-import { useGetCardsByFolderIdQuery } from '../../redux/api/card/card.api'
-import { CardDTO } from '../../redux/api/card/card.api.types'
+import {
+    useAddCardMutation,
+    useDeleteCardMutation,
+    useGetCardsByFolderIdQuery,
+} from '../../redux/api/card/card.api'
 import { generateId } from '../../utils/generateId'
 import { ExplanationTypeEnum } from '../../types/explanation.types'
-
-const prepareData = (
-    data: WordnetDefinition[] | FreeDictionaryTranslation,
-    dicType: ExplanationTypeEnum,
-    folderId: string,
-    cards: CardDTO[],
-) => {
-    if (dicType === ExplanationTypeEnum.Wordnet) {
-        return (data as WordnetDefinition[]).map((d) => {
-            const hash = getHash({
-                title: d.word,
-                explanation: d,
-                type: dicType,
-            })
-            return {
-                word: d.word,
-                partOfSpeech: d.pos,
-                explanation: d,
-                hash,
-                added: !!cards?.find((c) => c.hash === hash),
-            }
-        })
-    } else if (dicType === ExplanationTypeEnum.FreeDictionary) {
-        return (data as FreeDictionaryTranslation).meanings.map((m) => {
-            const hash = getHash({
-                title: (data as FreeDictionaryTranslation).word,
-                explanation: m,
-                folderId,
-                type: dicType,
-            })
-            return {
-                word: (data as FreeDictionaryTranslation).word,
-                partOfSpeech: m.partOfSpeech,
-                explanation: m,
-                hash,
-                added: !!cards?.find((c) => c.hash === hash),
-            }
-        })
-    }
-}
+import { prepareTranslationData } from '../../utils/prepareTranslationData'
 
 export const TranslationContainer = () => {
     const [dicType, setDicType] = useState(ExplanationTypeEnum.Wordnet)
+    const [addCard] = useAddCardMutation()
+    const [deleteCard] = useDeleteCardMutation()
     const word = useSelector(selectTranslationWord)
-    const dispatch = useDispatch()
     const { isLoading, isError, error, data } = useTranslationGetTranslation(
         dicType,
         word,
@@ -75,23 +36,28 @@ export const TranslationContainer = () => {
         () =>
             isEmpty(data)
                 ? null
-                : prepareData(data, dicType, currentFolderId, cards),
+                : prepareTranslationData(data, dicType, currentFolderId, cards),
         [data, dicType, currentFolderId, cards],
     )
 
     const handleTranslationCardClick = (cardData: ITranslationData) => {
-        const newCard: Omit<CardDTO, 'folderId'> = {
-            id: generateId(),
-            title: cardData.word,
-            hash: getHash({
+        if (cardData.added) {
+            const existedCard = cards.find((c) => c.hash === cardData.hash)
+            deleteCard({
+                cardId: existedCard.id,
+                folderId: existedCard.folderId,
+            })
+        } else {
+            const newCard = {
+                id: generateId(),
                 title: cardData.word,
-                explanation: cardData.explanation,
+                hash: cardData.hash,
                 type: dicType,
-            }),
-            type: dicType,
-            explanation: cardData.explanation,
+                explanation: cardData.explanation,
+                folderId: currentFolderId,
+            }
+            addCard(newCard)
         }
-        dispatch(createCardInCurrentFolder(newCard))
     }
 
     const { data: folders } = useGetFoldersQuery()

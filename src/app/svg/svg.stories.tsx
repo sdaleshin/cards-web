@@ -15,6 +15,7 @@ import { CardsSvg } from './CardsSvg'
 import { GroupsSvg } from './GroupsSvg'
 import { EditSvg } from './EditSvg'
 import { CardsBigSvg } from './CardsBigSvg'
+import { MinusInCircleSvg } from './MinusInCircleSvg'
 
 const StyledAddInCircleSvg = styled(AddInCircleSvg)`
     path {
@@ -130,6 +131,12 @@ const AllSvgOnPage = () => {
             <BlockDiv>
                 <Typography type={TypographyType.Body}>CardsBigSvg</Typography>
                 <CardsBigSvg />
+            </BlockDiv>
+            <BlockDiv>
+                <Typography type={TypographyType.Body}>
+                    MinusInCircleSvg
+                </Typography>
+                <MinusInCircleSvg />
             </BlockDiv>
         </ContainerDiv>
     )

@@ -1,34 +1,73 @@
 import styled from 'styled-components'
-import { FunctionComponent, useState } from 'react'
 import { Typography, TypographyType } from '../../basic/typography/Typography'
 import { Colors } from '../../../styles/colors'
-import {
-    getColorByTranslationCardStatusEnum,
-    TranslationCardStatus,
-    TranslationCardStatusEnum,
-} from '../translation-card-status/TranslationCardStatus'
 import { ITranslationData } from '../../../types/translation.types'
 import { Explanation } from '../../explanation/Explanation'
 import { ExplanationTypeEnum } from '../../../types/explanation.types'
+import { AddInCircleSvg } from '../../../svg/AddInCircleSvg'
+import { onlyDesktop } from '../../../styles/breakpoints'
+import { CheckInCircleSvg } from '../../../svg/CheckInCircleSvg'
+import { MinusInCircleSvg } from '../../../svg/MinusInCircleSvg'
+import React from 'react'
 
-const StyledTranslationCardStatus = styled(TranslationCardStatus)`
-    position: absolute;
-    margin-left: -40px;
-    margin-top: -28px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    width: calc(100% - 38px);
+const AddIcon = styled(AddInCircleSvg)`
+    path {
+        fill: ${Colors.Blue80};
+    }
+    rect {
+        stroke: ${Colors.Blue80};
+    }
 `
 
-const ContainerDiv = styled.div<{ borderColor: string; borderWidth: number }>`
-    position: relative;
-    padding: ${(p) => 41 - p.borderWidth}px;
+const MinusIcon = styled(MinusInCircleSvg)`
+    display: none;
+`
+
+const AddedIcon = styled(CheckInCircleSvg)`
+    path {
+        fill: ${Colors.White};
+    }
+    rect {
+        fill: ${Colors.Blue80};
+    }
+    ${onlyDesktop} {
+        path {
+            fill: ${Colors.Blue80};
+        }
+        rect {
+            stroke: ${Colors.Blue80};
+            fill: ${Colors.White};
+        }
+    }
+`
+
+const ContainerDiv = styled.div<{ added: boolean }>`
+    padding: 40px 32px 40px 40px;
     background: ${Colors.White};
-    border: ${(p) => p.borderWidth}px solid ${(p) => p.borderColor};
+    border: 1px solid ${(p) => (p.added ? Colors.Blue60 : Colors.Gray90)};
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin: 16px 0;
     cursor: pointer;
+
+    ${onlyDesktop} {
+        &:hover {
+            ${AddIcon} {
+                path {
+                    fill: ${Colors.White};
+                }
+                rect {
+                    fill: ${Colors.Blue80};
+                }
+            }
+            ${AddedIcon} {
+                display: none;
+            }
+            ${MinusIcon} {
+                display: block;
+            }
+        }
+    }
 `
 
 const PartOfSpeechTypography = styled(Typography)`
@@ -42,19 +81,23 @@ const DividerDiv = styled.div`
     margin: 16px 0;
 `
 
+const IconContainerDiv = styled.div`
+    height: 32px;
+    display: flex;
+    width: 32px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -3px;
+`
+
 const BodyContainerDiv = styled.div``
 
-const getTranslationCardStatus = (added: boolean, hovered: boolean) => {
-    if (hovered && !added) {
-        return TranslationCardStatusEnum.Add
-    } else if (!hovered && added) {
-        return TranslationCardStatusEnum.Added
-    } else if (hovered && added) {
-        return TranslationCardStatusEnum.Delete
-    } else {
-        return undefined
-    }
-}
+const RowDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+const TitleContainerDiv = styled.div``
 
 export const TranslationCard = ({
     word,
@@ -62,47 +105,46 @@ export const TranslationCard = ({
     explanation,
     onClick,
     added = false,
-    currentFolderName,
     type,
+    hash,
 }: ITranslationData & {
     onClick: (data: ITranslationData) => void
     added: boolean
     currentFolderName: string
     type: ExplanationTypeEnum
 }) => {
-    const [hovered, setHovered] = useState(false)
-    const translationCardStatus = getTranslationCardStatus(added, hovered)
-    const borderColor =
-        translationCardStatus === undefined
-            ? Colors.Gray90
-            : getColorByTranslationCardStatusEnum(translationCardStatus)
-    const borderWidth = translationCardStatus === undefined ? 1 : 2
     return (
         <ContainerDiv
-            borderColor={borderColor}
-            borderWidth={borderWidth}
+            added={added}
             onClick={() =>
-                onClick({ word, explanation: explanation, partOfSpeech })
+                onClick({
+                    word,
+                    explanation: explanation,
+                    partOfSpeech,
+                    added,
+                    hash,
+                })
             }
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
         >
-            <div>
-                <Typography type={TypographyType.Subtitle}>{word}</Typography>
-                <PartOfSpeechTypography type={TypographyType.Body}>
-                    {partOfSpeech}
-                </PartOfSpeechTypography>
-            </div>
+            <RowDiv>
+                <TitleContainerDiv>
+                    <Typography type={TypographyType.Subtitle}>
+                        {word}
+                    </Typography>
+                    <PartOfSpeechTypography type={TypographyType.Body}>
+                        {partOfSpeech}
+                    </PartOfSpeechTypography>
+                </TitleContainerDiv>
+                <IconContainerDiv>
+                    {!added && <AddIcon />}
+                    {added && <AddedIcon />}
+                    {added && <MinusIcon />}
+                </IconContainerDiv>
+            </RowDiv>
             <DividerDiv />
             <BodyContainerDiv>
                 <Explanation data={explanation} type={type} />
             </BodyContainerDiv>
-            {translationCardStatus !== undefined && (
-                <StyledTranslationCardStatus
-                    status={translationCardStatus}
-                    currentFolderName={currentFolderName}
-                />
-            )}
         </ContainerDiv>
     )
 }
