@@ -5,7 +5,7 @@ import {
 } from '../../redux/auth/auth.slice'
 import { Header } from '../../components/header/Header'
 import { useGetFoldersQuery } from '../../redux/api/folder/folder.api'
-import { useEffect } from 'react'
+import { ReactElement, useEffect } from 'react'
 import {
     getFolderLastUpdatedAt,
     selectCurrentFolderId,
@@ -17,8 +17,10 @@ import { getHomeUrl } from '../../utils/urls'
 
 export const HeaderContainer = ({
     foldersSelectShown,
+    actionsElement,
 }: {
     foldersSelectShown: boolean
+    actionsElement?: ReactElement
 }) => {
     const { name, email } = useSelector(selectUserInfo)
     const currentFolderId = useSelector(selectCurrentFolderId)
@@ -57,6 +59,7 @@ export const HeaderContainer = ({
             onSelectedFolderChange={handleSelectedFolderChange}
             onSignOutClick={handleSignOutClick}
             foldersSelectShown={foldersSelectShown}
+            actionsElement={actionsElement}
         />
     )
 }

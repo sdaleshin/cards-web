@@ -1,0 +1,297 @@
+import React from 'react'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
+import {
+    Button,
+    ButtonColorEnum,
+    ButtonSizeEnum,
+    ButtonVariantEnum,
+} from './Button'
+import styled from 'styled-components'
+
+export default {
+    title: 'Components/Button',
+    component: Button,
+    parameters: {
+        layout: 'fullscreen',
+    },
+} as ComponentMeta<typeof Button>
+
+const ButtonContainerDiv = styled.div`
+    width: 200px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const RowDiv = styled.div`
+    display: flex;
+    margin: 40px;
+`
+
+const Template: ComponentStory<typeof Button> = () => (
+    <div>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Red}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Red}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Red}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Red}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Red}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Red}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Black}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Black}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Black}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Black}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Black}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Black}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Yellow}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Yellow}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Yellow}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Yellow}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Yellow}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Yellow}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Blue}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Blue}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Blue}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Blue}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Blue}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Blue}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Gray}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Gray}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Regular}
+                    color={ButtonColorEnum.Gray}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+        <RowDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Gray}
+                    variant={ButtonVariantEnum.Filled}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Gray}
+                    variant={ButtonVariantEnum.Outlined}
+                />
+            </ButtonContainerDiv>
+            <ButtonContainerDiv>
+                <Button
+                    text="Test"
+                    size={ButtonSizeEnum.Small}
+                    color={ButtonColorEnum.Gray}
+                    variant={ButtonVariantEnum.Text}
+                />
+            </ButtonContainerDiv>
+        </RowDiv>
+    </div>
+)
+
+export const AllVariants = Template.bind({})

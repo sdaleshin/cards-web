@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import { Typography, TypographyType } from '../../basic/typography/Typography'
-import { Button } from '../../basic/button/Button'
+import {
+    Button,
+    ButtonColorEnum,
+    ButtonSizeEnum,
+    ButtonVariantEnum,
+} from '../../basic/button/Button'
 import { EditSvg } from '../../../svg/EditSvg'
 import React, { useEffect, useState } from 'react'
 import { Input } from '../../basic/input/Input'
@@ -21,6 +26,10 @@ const NameTypography = styled(Typography)`
 
 const ButtonsContainerDiv = styled.div`
     display: flex;
+`
+
+const ActionButton = styled(Button)`
+    width: 102px;
 `
 
 export const FolderName = ({
@@ -60,8 +69,11 @@ export const FolderName = ({
                     <NameTypography type={TypographyType.Subtitle}>
                         {name}
                     </NameTypography>
-                    <Button
+                    <ActionButton
                         text="Edit"
+                        variant={ButtonVariantEnum.Text}
+                        color={ButtonColorEnum.Gray}
+                        size={ButtonSizeEnum.Small}
                         icon={<EditSvg />}
                         onClick={onEditClick}
                     />
@@ -81,8 +93,20 @@ export const FolderName = ({
                         errorMessage={errorMessage}
                     />
                     <ButtonsContainerDiv>
-                        <Button text="Save" onClick={handleSaveClick} />
-                        <Button text="Cancel" onClick={onCancelClick} />
+                        <ActionButton
+                            text="Save"
+                            variant={ButtonVariantEnum.Text}
+                            color={ButtonColorEnum.Gray}
+                            size={ButtonSizeEnum.Small}
+                            onClick={handleSaveClick}
+                        />
+                        <ActionButton
+                            text="Cancel"
+                            onClick={onCancelClick}
+                            variant={ButtonVariantEnum.Text}
+                            color={ButtonColorEnum.Gray}
+                            size={ButtonSizeEnum.Small}
+                        />
                     </ButtonsContainerDiv>
                 </>
             )}

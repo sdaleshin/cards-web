@@ -4,6 +4,7 @@ import { Colors } from '../../styles/colors'
 import { gridSizes } from '../../styles/grid'
 import { ISelectOption, Select } from '../select/Select'
 import { HeaderUser } from './header-user/HeaderUser'
+import { ReactElement } from 'react'
 
 const StyledHeader = styled.header`
     width: 100%;
@@ -35,14 +36,14 @@ const FoldersSelect = styled(Select)`
 `
 
 const MobileFixedDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     ${onlyMobileAndTablet} {
         position: fixed;
         width: 100vw;
         background: ${Colors.Gray20};
         height: 56px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 `
 
@@ -55,6 +56,22 @@ const LogoSvg = styled.svg`
     }
 `
 
+const ActionsContainerDiv = styled.div`
+    margin-right: 48px;
+    ${onlyMobileAndTablet} {
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        background: ${Colors.White};
+        padding: 16px 8px;
+        box-shadow: 0px -3px 4px rgba(0, 0, 0, 0.1);
+        margin: 0;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+    }
+`
+
 export const Header = ({
     name,
     email,
@@ -63,6 +80,7 @@ export const Header = ({
     onSelectedFolderChange,
     onSignOutClick,
     foldersSelectShown,
+    actionsElement,
 }: {
     name: string
     email: string
@@ -71,6 +89,7 @@ export const Header = ({
     onSelectedFolderChange: (folder: ISelectOption) => void
     onSignOutClick: () => void
     foldersSelectShown: boolean
+    actionsElement?: ReactElement
 }) => {
     return (
         <StyledHeader>
@@ -98,7 +117,11 @@ export const Header = ({
                             fill="white"
                         />
                     </LogoSvg>
-
+                    {!!actionsElement && (
+                        <ActionsContainerDiv>
+                            {actionsElement}
+                        </ActionsContainerDiv>
+                    )}
                     <HeaderUser
                         name={name}
                         email={email}

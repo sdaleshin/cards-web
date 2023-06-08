@@ -2,7 +2,7 @@ import { LayoutContainer } from '../../containers/layout-container/LayoutContain
 import styled from 'styled-components'
 import { onlyDesktop } from '../../styles/breakpoints'
 import { gridSizes } from '../../styles/grid'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import {
     useGetFoldersQuery,
     useUpdateFolderMutation,
@@ -17,6 +17,13 @@ import {
 } from '../../redux/folder/folder.slice'
 import { FolderName } from '../../components/folder/folder-name/FolderName'
 import trim from 'lodash/trim'
+import {
+    Button,
+    ButtonColorEnum,
+    ButtonSizeEnum,
+    ButtonVariantEnum,
+} from '../../components/basic/button/Button'
+import { getStudyUrl } from '../../utils/urls'
 
 const ContainerDiv = styled.div<ISkeletonable>`
     ${skeletonOnDemand}
@@ -62,6 +69,7 @@ const StyledFolderName = styled(FolderName)`
 
 export const FolderPage = () => {
     const { id } = useParams()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [inEditMode, setInEditMode] = useState(false)
     const [updateFolder] = useUpdateFolderMutation()
@@ -80,7 +88,19 @@ export const FolderPage = () => {
     }, [])
 
     return (
-        <LayoutContainer>
+        <LayoutContainer
+            actionsElement={
+                !isLoading && (
+                    <Button
+                        text="Study"
+                        color={ButtonColorEnum.Red}
+                        size={ButtonSizeEnum.Small}
+                        variant={ButtonVariantEnum.Filled}
+                        onClick={() => navigate(getStudyUrl(id))}
+                    />
+                )
+            }
+        >
             <ContainerDiv skeleton={isLoading}>
                 <StyledFolderName
                     name={folder?.name ?? 'SKELETON FOR NAME'}

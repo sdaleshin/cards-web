@@ -17,8 +17,7 @@ const PartOfSpeechTypography = styled(Typography)`
 `
 
 const ContainerDiv = styled.div`
-    ${skeletonOnDemand}
-    position: relative;
+    ${skeletonOnDemand};
     padding: 40px;
     background: ${Colors.White};
     border: 1px solid ${Colors.Gray90};

@@ -17,3 +17,7 @@ export const getFoldersListUrl = () => {
 export const getFolderEditUrl = (id: string = ':id') => {
     return `/folders/${id}`
 }
+
+export const getStudyUrl = (folderId: string = ':folderId') => {
+    return `/study/${folderId}`
+}

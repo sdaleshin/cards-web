@@ -41,7 +41,7 @@ export const Input = ({
     placeholder?: string
     onChange: (value: string) => void
     errorMessage?: string
-    className: string
+    className?: string
 }) => {
     const handleChange = (e: SyntheticEvent<HTMLInputElement>) =>
         onChange(e.currentTarget.value)

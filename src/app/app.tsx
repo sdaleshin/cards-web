@@ -6,6 +6,7 @@ import {
     getFolderEditUrl,
     getFoldersListUrl,
     getHomeUrl,
+    getStudyUrl,
     getTranslationUrl,
 } from './utils/urls'
 import { CardsPage } from './pages/cards/CardsPage'
@@ -16,6 +17,7 @@ import { useSelector } from 'react-redux'
 import { selectLoggedIn } from './redux/auth/auth.slice'
 import { GlobalStyle } from './styles/GlobalStyle'
 import { NewFolderPage } from './pages/folders/NewFolderPage'
+import { StudyPage } from './pages/study/StudyPage'
 
 const Protected = ({
     children,
@@ -75,6 +77,14 @@ export const App = () => {
                     element={
                         <Protected loggedIn={loggedIn}>
                             <FolderPage />
+                        </Protected>
+                    }
+                />
+                <Route
+                    path={getStudyUrl()}
+                    element={
+                        <Protected loggedIn={loggedIn}>
+                            <StudyPage />
                         </Protected>
                     }
                 />
