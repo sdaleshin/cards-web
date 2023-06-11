@@ -16,6 +16,7 @@ import { GroupsSvg } from './GroupsSvg'
 import { EditSvg } from './EditSvg'
 import { CardsBigSvg } from './CardsBigSvg'
 import { MinusInCircleSvg } from './MinusInCircleSvg'
+import { CloseSvg } from './CloseSvg'
 
 const StyledAddInCircleSvg = styled(AddInCircleSvg)`
     path {
@@ -64,6 +65,12 @@ const StyledCardsSvg = styled(CardsSvg)`
 const StyledGroupsSvg = styled(GroupsSvg)`
     path {
         fill: black;
+    }
+`
+
+const StyledCloseSvg = styled(CloseSvg)`
+    path {
+        stroke: black;
     }
 `
 
@@ -137,6 +144,10 @@ const AllSvgOnPage = () => {
                     MinusInCircleSvg
                 </Typography>
                 <MinusInCircleSvg />
+            </BlockDiv>
+            <BlockDiv>
+                <Typography type={TypographyType.Body}>CloseeSvg</Typography>
+                <StyledCloseSvg />
             </BlockDiv>
         </ContainerDiv>
     )
