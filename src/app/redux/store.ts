@@ -11,6 +11,7 @@ import { cardApi } from './api/card/card.api'
 import { folderSlice } from './folder/folder.slice'
 import { listenerMiddleware } from './listenerMiddleware'
 import { dictionaryApi } from './api/dictionary/dictionary.api'
+import { translationApi } from './api/translation/translation.api'
 
 let store: any = null
 
@@ -22,6 +23,7 @@ const reducer = {
     [freeDictionaryApi.reducerPath]: freeDictionaryApi.reducer,
     [cardApi.reducerPath]: cardApi.reducer,
     [dictionaryApi.reducerPath]: dictionaryApi.reducer,
+    [translationApi.reducerPath]: translationApi.reducer,
 }
 
 export type RootState = StateFromReducersMapObject<typeof reducer>
@@ -37,6 +39,7 @@ export const initializeStore = (preloadedState?: PreloadedState<RootState>) => {
                     freeDictionaryApi.middleware,
                     cardApi.middleware,
                     dictionaryApi.middleware,
+                    translationApi.middleware,
                 ]),
         devTools: process.env.NODE_ENV !== 'production',
         preloadedState,

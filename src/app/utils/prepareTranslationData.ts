@@ -4,9 +4,15 @@ import { ExplanationTypeEnum } from '../types/explanation.types'
 import { CardDTO } from '../redux/api/card/card.api.types'
 import { getHash } from './getHash'
 import { ITranslationData } from '../types/translation.types'
+import { CreateChatCompletionResponse } from 'openai'
+import { splitStringByNumbers } from './splitStringByNumbers'
+import { TranslationForDictionaryDTO } from '../redux/api/translation/translation.api.types'
 
 export const prepareTranslationData = (
-    data: WordnetDefinition[] | FreeDictionaryTranslation,
+    data:
+        | WordnetDefinition[]
+        | FreeDictionaryTranslation
+        | TranslationForDictionaryDTO,
     dicType: ExplanationTypeEnum,
     folderId: string,
     cards: CardDTO[],
@@ -38,6 +44,25 @@ export const prepareTranslationData = (
             return {
                 word: (data as FreeDictionaryTranslation).word,
                 partOfSpeech: m.partOfSpeech,
+                explanation: m,
+                hash,
+                added: !!cards?.find((c) => c.hash === hash),
+            }
+        })
+    } else if (dicType === ExplanationTypeEnum.GPT) {
+        const messageContent = (data as TranslationForDictionaryDTO).data
+            .choices?.[0].message.content
+        const word = (data as TranslationForDictionaryDTO).word
+        return splitStringByNumbers(messageContent).map((m) => {
+            const hash = getHash({
+                title: word,
+                explanation: m,
+                folderId,
+                type: dicType,
+            })
+            return {
+                word,
+                partOfSpeech: '',
                 explanation: m,
                 hash,
                 added: !!cards?.find((c) => c.hash === hash),

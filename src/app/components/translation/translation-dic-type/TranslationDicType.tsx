@@ -42,6 +42,13 @@ export const TranslationDicType = ({
                 checked={dicType === ExplanationTypeEnum.Wordnet}
             />{' '}
             WordNet
+            <RadioInput
+                type="radio"
+                value={ExplanationTypeEnum.GPT}
+                name="gender"
+                checked={dicType === ExplanationTypeEnum.GPT}
+            />{' '}
+            Chat GPT
         </RadioContainerDiv>
     )
 }
