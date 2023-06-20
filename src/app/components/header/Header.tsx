@@ -6,9 +6,9 @@ import { ISelectOption, Select } from '../select/Select'
 import { HeaderUser } from './header-user/HeaderUser'
 import { ReactElement } from 'react'
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.header<{ foldersSelectShown: boolean }>`
     width: 100%;
-    height: 56px;
+    height: ${(p) => (p.foldersSelectShown ? '112px' : '56px')};
     display: flex;
 `
 
@@ -44,6 +44,7 @@ const MobileFixedDiv = styled.div`
         width: 100vw;
         background: ${Colors.Gray20};
         height: 56px;
+        top: 0;
     }
 `
 
@@ -92,7 +93,7 @@ export const Header = ({
     actionsElement?: ReactElement
 }) => {
     return (
-        <StyledHeader>
+        <StyledHeader foldersSelectShown={foldersSelectShown}>
             <GridRowDiv>
                 {foldersSelectShown ? (
                     <FoldersSelect

@@ -32,13 +32,13 @@ const HeaderContainerDiv = styled.div`
     height: 56px;
     display: flex;
     align-items: center;
+    ${onlyMobileAndTablet} {
+        height: auto;
+    }
 `
 const ChildrenContainerDiv = styled.div`
     background: ${Colors.Gray95};
     min-height: calc(100vh - 56px);
-    ${onlyMobileAndTablet} {
-        padding-top: 56px;
-    }
 `
 
 const MobileOpenSidebarSvg = styled.svg`
