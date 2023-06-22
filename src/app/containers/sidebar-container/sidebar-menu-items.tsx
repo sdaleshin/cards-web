@@ -13,11 +13,11 @@ export const sidebarMenuItems = [
         name: 'Dictionary',
         link: getTranslationUrl(),
     },
-    {
-        IconComponent: CardsSvg,
-        name: 'Cards',
-        link: getCardsUrl(),
-    },
+    // {
+    //     IconComponent: CardsSvg,
+    //     name: 'Cards',
+    //     link: getCardsUrl(),
+    // },
     {
         IconComponent: GroupsSvg,
         name: 'Groups',

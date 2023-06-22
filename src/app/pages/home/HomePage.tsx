@@ -7,7 +7,7 @@ import {
 import { useSelector } from 'react-redux'
 import { selectLoggedIn } from '../../redux/auth/auth.slice'
 import { Navigate } from 'react-router-dom'
-import { getCardsUrl } from '../../utils/urls'
+import { getTranslationUrl } from '../../utils/urls'
 import { gridSizes } from '../../styles/grid'
 import { Colors } from '../../styles/colors'
 import { onlyMobileAndTablet } from '../../styles/breakpoints'
@@ -91,7 +91,7 @@ const LogoSvg = styled.svg`
 export const HomePage = () => {
     const loggedIn = useSelector(selectLoggedIn)
     return loggedIn ? (
-        <Navigate to={getCardsUrl()} />
+        <Navigate to={getTranslationUrl()} />
     ) : (
         <ContainerDiv>
             <HeaderGridDiv>
