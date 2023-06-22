@@ -17,7 +17,7 @@ const TitleDiv = styled.div<{ answerShown: boolean; height: number }>`
     border-radius: 8px;
     height: ${(p) =>
         p.answerShown ? '80px' : p.height ? p.height + 'px' : 'auto'};
-    transition: 0.3s ease-out;
+    transition: ${(p) => (p.answerShown ? '0.3s ease-out' : 'none')};
     cursor: pointer;
     z-index: 2;
     position: relative;
@@ -29,14 +29,17 @@ const TitleTypography = styled(Typography)`
 `
 
 const ExplanationContainer = styled.div<{ answerShown: boolean }>`
+    width: 100%;
     position: absolute;
     border-radius: 8px;
     border: 1px solid ${Colors.Gray90};
     background: ${Colors.White};
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
     padding: 40px;
+    box-sizing: border-box;
     z-index: 1;
-    transition: 0.3s ease-out;
+    transition: ${(p) => (p.answerShown ? '0.3s ease-out' : 'none')};
+    opacity: ${(p) => (p.answerShown ? '1' : '0')};
     margin-top: ${(p) => (p.answerShown ? '88px' : '0')};
 `
 
@@ -57,6 +60,9 @@ export const CardStudy = ({
             setTitleHeight(titleRef.current.clientHeight)
         }
     }, [])
+    useEffect(() => {
+        setAnswerShown(false)
+    }, [card])
     return (
         <ContainerDiv className={className}>
             <ExplanationContainer answerShown={answerShown}>
