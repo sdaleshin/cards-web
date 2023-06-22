@@ -9,8 +9,13 @@ import {
 import { EditSvg } from '../../../svg/EditSvg'
 import React, { useEffect, useState } from 'react'
 import { Input } from '../../basic/input/Input'
+import {
+    ISkeletonable,
+    skeletonOnDemand,
+} from '../../../styles/skeletonOnDemand'
 
-const ContainerDiv = styled.div`
+const ContainerDiv = styled.div<ISkeletonable>`
+    ${skeletonOnDemand};
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,6 +45,7 @@ export const FolderName = ({
     onSaveClick,
     onCancelClick,
     validateFolderName,
+    skeleton,
 }: {
     name?: string
     inEditMode?: boolean
@@ -48,7 +54,7 @@ export const FolderName = ({
     onSaveClick?: (name: string) => void
     onCancelClick?: () => void
     validateFolderName: (name: string) => string
-}) => {
+} & ISkeletonable) => {
     const [inputFolderName, setInputFolderName] = useState(name)
     const [errorMessage, setErrorMessage] = useState('')
     useEffect(() => {
@@ -63,7 +69,7 @@ export const FolderName = ({
         }
     }
     return (
-        <ContainerDiv className={className}>
+        <ContainerDiv className={className} skeleton={skeleton}>
             {!inEditMode && (
                 <>
                     <NameTypography type={TypographyType.Subtitle}>

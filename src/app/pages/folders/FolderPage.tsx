@@ -25,8 +25,7 @@ import {
 } from '../../components/basic/button/Button'
 import { getStudyUrl } from '../../utils/urls'
 
-const ContainerDiv = styled.div<ISkeletonable>`
-    ${skeletonOnDemand}
+const ContainerDiv = styled.div`
     ${onlyDesktop} {
         margin-left: 32px;
     }
@@ -101,8 +100,9 @@ export const FolderPage = () => {
                 )
             }
         >
-            <ContainerDiv skeleton={isLoading}>
+            <ContainerDiv>
                 <StyledFolderName
+                    skeleton={isLoading}
                     name={folder?.name ?? 'SKELETON FOR NAME'}
                     inEditMode={inEditMode}
                     onEditClick={() => setInEditMode(true)}
