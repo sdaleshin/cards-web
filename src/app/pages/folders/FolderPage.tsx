@@ -23,7 +23,7 @@ import {
     ButtonSizeEnum,
     ButtonVariantEnum,
 } from '../../components/basic/button/Button'
-import { getStudyUrl } from '../../utils/urls'
+import { getStudyFolderUrl } from '../../utils/urls'
 
 const ContainerDiv = styled.div`
     ${onlyDesktop} {
@@ -95,7 +95,7 @@ export const FolderPage = () => {
                         color={ButtonColorEnum.Red}
                         size={ButtonSizeEnum.Small}
                         variant={ButtonVariantEnum.Filled}
-                        onClick={() => navigate(getStudyUrl(id))}
+                        onClick={() => navigate(getStudyFolderUrl(id))}
                     />
                 )
             }

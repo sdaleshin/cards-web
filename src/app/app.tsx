@@ -6,6 +6,9 @@ import {
     getFolderEditUrl,
     getFoldersListUrl,
     getHomeUrl,
+    getInsightsUrl,
+    getSettingsUrl,
+    getStudyFolderUrl,
     getStudyUrl,
     getTranslationUrl,
 } from './utils/urls'
@@ -17,7 +20,10 @@ import { useSelector } from 'react-redux'
 import { selectLoggedIn } from './redux/auth/auth.slice'
 import { GlobalStyle } from './styles/GlobalStyle'
 import { NewFolderPage } from './pages/folders/NewFolderPage'
+import { StudyFolderPage } from './pages/study/StudyFolderPage'
 import { StudyPage } from './pages/study/StudyPage'
+import { InsightsPage } from './pages/insights/InsightsPage'
+import { SettingsPage } from './pages/settings/SettingsPage'
 
 const Protected = ({
     children,
@@ -85,6 +91,30 @@ export const App = () => {
                     element={
                         <Protected loggedIn={loggedIn}>
                             <StudyPage />
+                        </Protected>
+                    }
+                />
+                <Route
+                    path={getStudyFolderUrl()}
+                    element={
+                        <Protected loggedIn={loggedIn}>
+                            <StudyFolderPage />
+                        </Protected>
+                    }
+                />
+                <Route
+                    path={getInsightsUrl()}
+                    element={
+                        <Protected loggedIn={loggedIn}>
+                            <InsightsPage />
+                        </Protected>
+                    }
+                />
+                <Route
+                    path={getSettingsUrl()}
+                    element={
+                        <Protected loggedIn={loggedIn}>
+                            <SettingsPage />
                         </Protected>
                     }
                 />

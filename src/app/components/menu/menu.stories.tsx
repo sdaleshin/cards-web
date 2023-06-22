@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { Menu } from './Menu'
 import { sidebarMenuItems } from '../../containers/sidebar-container/sidebar-menu-items'
-import { getCardsUrl } from '../../utils/urls'
+import { getTranslationUrl } from '../../utils/urls'
 import { MemoryRouter } from 'react-router-dom'
 import { Colors } from '../../styles/colors'
 import styled from 'styled-components'
@@ -52,5 +52,5 @@ const Template: ComponentStory<typeof Menu> = (args) => <Menu {...args} />
 export const Default = Template.bind({})
 Default.args = {
     items: sidebarMenuItems,
-    currentRoute: getCardsUrl(),
+    currentRoute: getTranslationUrl(),
 }
