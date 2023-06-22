@@ -38,14 +38,14 @@ const IconContainer = styled.div`
     align-items: center;
 `
 
-const StyledIcon = styled.svg<{ active: boolean }>`
+const StyledIcon = styled.svg<{ $active: boolean }>`
     path {
-        fill: ${(p) => (p.active ? Colors.Gray90 : Colors.Gray80)};
+        fill: ${(p) => (p.$active ? Colors.Gray90 : Colors.Gray80)};
     }
 `
 
-const StyledName = styled(Typography)<{ active: boolean }>`
-    color: ${(p) => (p.active ? Colors.Gray90 : Colors.Gray80)};
+const StyledName = styled(Typography)<{ $active: boolean }>`
+    color: ${(p) => (p.$active ? Colors.Gray90 : Colors.Gray80)};
 `
 
 const ContainerLi = styled.li`
@@ -82,9 +82,9 @@ export const MenuItem = ({
         <ContainerLi>
             <StyledLink to={item.link}>
                 <IconContainer>
-                    <StyledIcon as={item.IconComponent} active={active} />
+                    <StyledIcon as={item.IconComponent} $active={active} />
                 </IconContainer>
-                <StyledName type={TypographyType.Body} active={active}>
+                <StyledName type={TypographyType.Body} $active={active}>
                     {item.name}
                 </StyledName>
             </StyledLink>

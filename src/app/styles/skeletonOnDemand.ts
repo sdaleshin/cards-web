@@ -44,5 +44,9 @@ export const skeletonOnDemand = css<ISkeletonable>`
                       }
                   }
               `
-            : ''}
+            : css`
+                  span:after {
+                      display: none;
+                  }
+              `}
 `
